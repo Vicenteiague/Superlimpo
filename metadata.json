@@ -1,0 +1,8 @@
+{
+  "name": "Superlimpo BiositesAi",
+  "description": "Cartão NFC infinito Conectacard: compartilhe contatos, localização e redes sociais com um toque. Biolinks e plaquinhas QR Code | NFC.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
