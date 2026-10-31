@@ -130,7 +130,49 @@ export function ChatAssistant({ data }: ChatAssistantProps) {
       }
     }
 
-    // 2. Busca semântica por produtos e termos-chave da Superlimpo
+    // 2. Busca prioritária por Tabela de Preços / Catálogo Completo
+    const isTabelaQuery =
+      q.includes("tabela") ||
+      q.includes("preco") ||
+      q.includes("precos") ||
+      q.includes("valor") ||
+      q.includes("valores") ||
+      q.includes("catalogo") ||
+      q === "produtos" ||
+      q === "quais produtos" ||
+      q.includes("lista de preco") ||
+      q.includes("quanto custa os produtos") ||
+      q.includes("linha dona de casa") ||
+      q.includes("linha empresas") ||
+      q.includes("linha empresa");
+
+    if (isTabelaQuery) {
+      return `Tabela de produtos Superlimpo
+
+Linha dona de casa:
+• Kit de Produto com (Água sanitária 5L, Desinfetante 5L e Sabão de álcool 5L) todos os 3 por R$ 38,00
+• Água sanitária 5 litros R$ 12,00
+• Cloro Ativo 12% 5 litros R$ 45,00
+• Desinfetante Perfumado 5 litros R$ 15,00
+• Sabão de álcool (Feito com óleo novo) 5 litros R$ 15,00
+• Sabão Lava Roupas Azul R$ 35,00
+• Amaciante de roupa 5 litros R$ 25,00
+• Alvejante sem cloro 5 litros (Tipo Vanish) R$ 30,00
+• Lava louças 5 litros R$ 25,00
+• Limpa Pedras 5 litros R$ 30,00
+• Limpa Porcelanato & Cerâmica 5 litros R$ 30,00
+
+Linha empresas:
+• Limpa Chapas 5 litros R$ 30,00
+• Brilho alumínio 5 litros R$ 30,00
+• Shampoo Automotivo 5 litros R$ 30,00
+• Desengraxante Automotivo 5 litros R$ 30,00
+• Ativado 5L R$ 30,00
+
+[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)`;
+    }
+
+    // 3. Busca específica por produto individual ou kit
     if (q.includes("kit") || q.includes("dona de casa") || (q.includes("3") && q.includes("38"))) {
       return "O Kit de Produto (Água Sanitária 5L, Desinfetante 5L e Sabão de Álcool 5L) sai todos os 3 galões por apenas R$ 38,00!\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
@@ -223,10 +265,6 @@ export function ChatAssistant({ data }: ChatAssistantProps) {
 
     if (q.includes("onde fica") || q.includes("localizacao") || q.includes("como chegar") || q.includes("maps")) {
       return "Trabalhamos com entregas em Ponta Porã e Pedro Juan Caballero. Veja nossa localização: [Abrir no Google Maps](https://maps.app.goo.gl/WP6PrQUTYoC1ZQ5Y9)\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
-    }
-
-    if (q.includes("produtos") || q.includes("catalogo") || q.includes("precos") || q.includes("valores") || q.includes("tabela")) {
-      return "Trabalhamos com galões de 5L direto de fábrica:\n• Kit Dona de Casa (3 galões de 5L): R$ 38,00\n• Água Sanitária 5L: R$ 12,00\n• Desinfetante Perfumado 5L: R$ 15,00\n• Sabão de Álcool 5L: R$ 15,00\n• Sabão Lava Roupas Azul 5L: R$ 35,00\n• Amaciante 5L: R$ 25,00\n• Cloro Ativo 12% 5L: R$ 45,00\n• Alvejante sem cloro 5L: R$ 30,00\n• Lava Louças 5L: R$ 25,00\n• Limpa Pedras 5L: R$ 30,00\n• Limpa Porcelanato 5L: R$ 30,00\n• Linha Empresas 5L: R$ 30,00 cada\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
 
     return defaultFallback;

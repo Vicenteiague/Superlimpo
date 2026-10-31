@@ -267,6 +267,33 @@ Linha Empresas (5 litros):
     ],
     produtos: [
       {
+        id: "p-tabela",
+        pergunta: "Qual a tabela de preços?",
+        resposta: `Tabela de produtos Superlimpo
+
+Linha dona de casa:
+• Kit de Produto com (Água sanitária 5L, Desinfetante 5L e Sabão de álcool 5L) todos os 3 por R$ 38,00
+• Água sanitária 5 litros R$ 12,00
+• Cloro Ativo 12% 5 litros R$ 45,00
+• Desinfetante Perfumado 5 litros R$ 15,00
+• Sabão de álcool (Feito com óleo novo) 5 litros R$ 15,00
+• Sabão Lava Roupas Azul R$ 35,00
+• Amaciante de roupa 5 litros R$ 25,00
+• Alvejante sem cloro 5 litros (Tipo Vanish) R$ 30,00
+• Lava louças 5 litros R$ 25,00
+• Limpa Pedras 5 litros R$ 30,00
+• Limpa Porcelanato & Cerâmica 5 litros R$ 30,00
+
+Linha empresas:
+• Limpa Chapas 5 litros R$ 30,00
+• Brilho alumínio 5 litros R$ 30,00
+• Shampoo Automotivo 5 litros R$ 30,00
+• Desengraxante Automotivo 5 litros R$ 30,00
+• Ativado 5L R$ 30,00
+
+[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)`
+      },
+      {
         id: "p-kit",
         pergunta: "Quanto custa o Kit Dona de Casa?",
         resposta: "O Kit de Produto (Água Sanitária 5L, Desinfetante 5L e Sabão de Álcool 5L) sai todos os 3 galões por apenas R$ 38,00!\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
