@@ -55,7 +55,8 @@ export function Header({ banner, avatar, name, bio, onOpenQr }: HeaderProps) {
         {/* Quick action buttons right under avatar */}
         <div className="flex items-center justify-center gap-2 mt-4 mb-2">
           <button
-            onClick={downloadVCard}
+            type="button"
+            onClick={() => downloadVCard()}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-[#131f37] hover:bg-[#1a2b4c] border border-[#23375e] hover:border-[#3b82f6] text-[#f8fafc] transition-all hover:scale-105 active:scale-95 shadow-sm"
             title="Salvar cartão na agenda"
           >

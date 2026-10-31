@@ -40,6 +40,17 @@ export function Footer({ footerText, local, telefone, email }: FooterProps) {
           </a>
         )}
       </div>
+
+      <div className="mt-3 pt-3 border-t border-[#1e3056]/80 flex items-center justify-center text-xs">
+        <a
+          href="https://wa.me/5567993174612"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#94a3b8] hover:text-[#38bdf8] transition-colors flex items-center gap-1.5 py-1 px-3 rounded-full bg-[#111c35]/80 border border-[#1e3056] hover:border-[#38bdf8]/40 shadow-sm"
+        >
+          <span>Criado por <strong className="text-[#38bdf8] font-semibold">BiositesAi</strong> 67993174612</span>
+        </a>
+      </div>
     </footer>
   );
 }

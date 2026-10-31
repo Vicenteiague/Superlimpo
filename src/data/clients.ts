@@ -92,42 +92,10 @@ export const allClients: Record<string, BiositeData> = {
       }
     ],
     atendimento: {
-      saudacao: "Olá! Como posso ajudar você hoje com pedidos e cardápio da Pizzaria Forno di Napoli?",
-      conhecimento: `Forno di Napoli Pizzaria em Ponta Porã MS.
-Horário de atendimento: Quarta a Domingo das 18h às 23h30.
-Pizzas grandes de 8 fatias a partir de R$ 44,90.
-Combo Família: 1 Pizza Grande + 1 Pizza Broto Doce + 1 Coca-Cola 2L por apenas R$ 79,90.
-Entrega em toda Ponta Porã e Pedro Juan Caballero com tempo médio de 35 a 45 minutos.
-Formas de pagamento: Pix, Cartão de Crédito/Débito e Dinheiro.`,
-      empresa: [
-        {
-          id: "pe1",
-          pergunta: "Qual o horário de funcionamento?",
-          resposta: "Abrimos de quarta a domingo das 18h00 às 23h30 para entregas e retirada no balcão!"
-        },
-        {
-          id: "pe2",
-          pergunta: "Vocês entregam em Pedro Juan Caballero?",
-          resposta: "Sim! Fazemos entregas tanto em Ponta Porã quanto em Pedro Juan Caballero com entrega rápida de 35 a 45 minutos."
-        },
-        {
-          id: "pe3",
-          pergunta: "Quais as formas de pagamento?",
-          resposta: "Aceitamos Pix, cartões de crédito e débito de todas as bandeiras e dinheiro."
-        }
-      ],
-      produtos: [
-        {
-          id: "pp1",
-          pergunta: "Tem combo com refrigerante hoje?",
-          resposta: "Sim! Nosso Combo Família inclui 1 Pizza Grande Salgada + 1 Broto Doce + 1 Coca-Cola 2L por apenas R$ 79,90!"
-        },
-        {
-          id: "pp2",
-          pergunta: "A massa é fina ou grossa?",
-          resposta: "Nossa massa é artesanal de fermentação lenta (48h), leve, crocante na borda e macia no centro, assada no forno a lenha."
-        }
-      ]
+      saudacao: "Olá! Como posso ajudar você hoje?",
+      conhecimento: "",
+      empresa: [],
+      produtos: []
     },
     mapa: {
       title: "Forno di Napoli Pizzaria - Ponta Porã MS",
@@ -221,41 +189,10 @@ Formas de pagamento: Pix, Cartão de Crédito/Débito e Dinheiro.`,
       }
     ],
     atendimento: {
-      saudacao: "Olá! Como posso ajudar você hoje com medicamentos e dúvidas da Drogaria Mais Saúde?",
-      conhecimento: `Drogaria Mais Saúde em Ponta Porã MS.
-Horário de atendimento: Aberto todos os dias das 07h00 às 23h00 (incluindo domingos e feriados).
-Serviços disponíveis: Aplicação de injetáveis, medição de pressão arterial gratuita, teste de glicemia e entrega expressa de remédios.
-Entrega de medicamentos em Ponta Porã em até 30 minutos.
-Trabalhamos com genéricos com até 70% de desconto.`,
-      empresa: [
-        {
-          id: "fe1",
-          pergunta: "Vocês funcionam aos domingos e feriados?",
-          resposta: "Sim! Abrimos todos os dias, de domingo a domingo e feriados, das 07h00 às 23h00 ininterruptamente."
-        },
-        {
-          id: "fe2",
-          pergunta: "Como faço para cotar uma receita médica?",
-          resposta: "Basta tirar uma foto da sua receita e nos enviar pelo WhatsApp! Nossa equipe de farmacêuticos responde em menos de 2 minutos com os valores e opções de genéricos."
-        },
-        {
-          id: "fe3",
-          pergunta: "Fazem entrega rápida?",
-          resposta: "Sim! Nosso motoboy entrega em qualquer bairro de Ponta Porã em média em 20 a 30 minutos."
-        }
-      ],
-      produtos: [
-        {
-          id: "fp1",
-          pergunta: "Vocês medem pressão e fazem teste de glicemia?",
-          resposta: "Sim, realizamos aferição de pressão arterial gratuita e teste de glicemia no balcão com nossos farmacêuticos."
-        },
-        {
-          id: "fp2",
-          pergunta: "Têm descontos em genéricos?",
-          resposta: "Sim! Temos descontos de até 70% na linha de medicamentos genéricos e similares."
-        }
-      ]
+      saudacao: "Olá! Como posso ajudar você hoje?",
+      conhecimento: "",
+      empresa: [],
+      produtos: []
     },
     mapa: {
       title: "Drogaria Mais Saúde - Ponta Porã MS",
@@ -304,10 +241,22 @@ Trabalhamos com genéricos com até 70% de desconto.`,
         url: "https://superlimpoprodutosdelimpeza.lovable.app/"
       },
       {
+        id: "sl-insta",
+        title: "Instagram @superlimpoprodutosdelimpeza",
+        image: "/assets/instagram-refined-BsHeVKuq.jpg",
+        url: "https://www.instagram.com/superlimpoprodutosdelimpeza?exln=YTQxenNhaXB0ejdn"
+      },
+      {
         id: "sl-maps",
-        title: "Região de Entrega Ponta Porã e PJC",
+        title: "Como Chegar (Localização)",
         image: "/assets/location-refined-DWPeLfoT.jpg",
-        url: "https://maps.google.com/?q=Ponta+Pora+MS"
+        url: "https://share.google/UCCXWFvQdBxv3jnTb"
+      },
+      {
+        id: "sl-pix",
+        title: "Chave Pix: 67993174612",
+        image: "/assets/aistudio/file_00000000a420820eb10b57b75091ec46_47854411.png",
+        url: "#pix-67993174612"
       }
     ],
     catalogo: {
@@ -400,72 +349,137 @@ Trabalhamos com genéricos com até 70% de desconto.`,
       ]
     },
     atendimento: {
-      saudacao: "Olá! Como posso ajudar você hoje com os produtos Superlimpo?",
-      conhecimento: `Somos a Superlimpo vendemos produtos de limpeza.
-WhatsApp: (67) 99834-2469
-Link WhatsApp: https://api.whatsapp.com/send?phone=5567998342469
+      saudacao: "Olá! Eu sou a LIA, atendente virtual inteligente da Superlimpo. Estou aqui para tirar suas dúvidas sobre nossos produtos, preços e entregas. Como posso ajudar você hoje?",
+      conhecimento: `Agente Virtual: LIA
+Empresa: Superlimpo Produtos de Limpeza — O maior Delivery de Produtos de Limpeza da fronteira.
+WhatsApp: 67 99834-2469 (67998342469)
+Link do WhatsApp: https://api.whatsapp.com/send?phone=5567998342469
 Nosso Site: https://superlimpoprodutosdelimpeza.lovable.app/
-Não tem loja física. Apenas entrega em toda região de Ponta Porã e Pedro Juan Caballero.
-As entregas são feitas até às 16 horas. Aos sábados somente às 7:00 horas e às 15:30 horas.
-Não temos Nota Fiscal apenas Recibo.
-Dependendo da distância e do pedido existe uma pequena taxa de entrega. Mas a maioria das entregas não tem custo.
+Chave Pix: 67993174612
+Instagram: https://www.instagram.com/superlimpoprodutosdelimpeza?exln=YTQxenNhaXB0ejdn
+Perfil no Google: https://g.co/kgs/NzjgPj
+Como Chegar: https://maps.app.goo.gl/WP6PrQUTYoC1ZQ5Y9
 
-Tabela de produtos Superlimpo:
-Linha dona de casa:
-- Kit de Produto com (Água sanitária 5L, Desinfetante 5L e Sabão de álcool 5L) todos os 3 por R$ 38,00
-- Água sanitária 5 litros R$ 12,00
-- Cloro Ativo 12% 5 litros R$ 45,00
-- Desinfetante Perfumado 5 litros R$ 15,00
-- Sabão de álcool (Feito com óleo novo) 5 litros R$ 15,00
-- Sabão Lava Roupas Azul R$ 35,00
-- Amaciante de roupa 5 litros R$ 25,00
-- Alvejante sem cloro 5 litros (Tipo Vanish) R$ 30,00
-- Lava louças 5 litros R$ 25,00
-- Limpa Pedras 5 litros R$ 30,00
-- Limpa Porcelanato & Cerâmica 5 litros R$ 30,00
+REGRAS DE OPERAÇÃO, ENTREGA E PAGAMENTO:
+- Loja Física: Não temos loja física. Trabalhamos apenas com entrega em toda a região de Ponta Porã e Pedro Juan Caballero.
+- Horários de Entrega (Segunda a Sexta): As entregas são feitas até às 16:00 horas.
+- Horários de Entrega (Sábados): Aos sábados somente às 07:00 horas e às 15:30 horas.
+- Taxa de Entrega: A maioria das entregas não tem custo. Dependendo da distância e do pedido, existe uma pequena taxa de entrega.
+- Documento Fiscal: Não temos Nota Fiscal, apenas Recibo.
+- Pagamento via Pix: Chave Pix 67993174612.
 
-Linha empresas:
-- Limpa Chapas 5 litros R$ 30,00
-- Brilho alumínio 5 litros R$ 30,00
-- Shampoo Automotivo 5 litros R$ 30,00
-- Desengraxante Automotivo 5 litros R$ 30,00
-- Ativado 5L R$ 30,00
+TABELA DE PRODUTOS E PREÇOS:
+Linha Dona de Casa:
+- Kit de Produto (Água sanitária 5L, Desinfetante 5L e Sabão de álcool 5L): Todos os 3 por R$ 38,00
+- Água sanitária (5 litros): R$ 12,00
+- Cloro Ativo 12% (5 litros): R$ 45,00
+- Desinfetante Perfumado (5 litros): R$ 15,00
+- Sabão de álcool - Feito com óleo novo (5 litros): R$ 15,00
+- Sabão Lava Roupas Azul: R$ 35,00
+- Amaciante de roupa (5 litros): R$ 25,00
+- Alvejante sem cloro - Tipo Vanish (5 litros): R$ 30,00
+- Lava louças (5 litros): R$ 25,00
+- Limpa Pedras (5 litros): R$ 30,00
+- Limpa Porcelanato & Cerâmica (5 litros): R$ 30,00
 
-IMPORTANTE:
-NÃO INVENTAR. NÃO ALUCINAR.
-SE NÃO SOUBER DIGA: "Vou passar para o atendimento humano: https://api.whatsapp.com/send?phone=5567998342469".`,
+Linha Empresas (5 litros):
+- Limpa Chapas (5 litros): R$ 30,00
+- Brilho alumínio (5 litros): R$ 30,00
+- Shampoo Automotivo (5 litros): R$ 30,00
+- Desengraxante Automotivo (5 litros): R$ 30,00
+- Ativado (5L): R$ 30,00`,
       empresa: [
         {
-          id: "sl1",
-          pergunta: "Tem loja física?",
-          resposta: "Não temos loja física. Trabalhamos exclusivamente com entrega em domicílio e empresas em toda Ponta Porã e Pedro Juan Caballero."
+          id: "e-loja",
+          pergunta: "Tem loja física para retirar?",
+          resposta: "Não temos loja física! A Superlimpo trabalha exclusivamente com entregas rápidas em toda a região de Ponta Porã e Pedro Juan Caballero.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
         },
         {
-          id: "sl2",
+          id: "e-horarios",
           pergunta: "Quais os horários de entrega?",
-          resposta: "As entregas são feitas até às 16 horas. Aos sábados somente às 7:00 horas e às 15:30 horas."
+          resposta: "Nossos horários de entrega são:\n• Segunda a Sexta: entregas até às 16:00 horas.\n• Sábados: entregas às 07:00 horas e às 15:30 horas.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
         },
         {
-          id: "sl3",
-          pergunta: "Emitem nota fiscal?",
-          resposta: "Não temos Nota Fiscal, apenas Recibo."
+          id: "e-taxa",
+          pergunta: "Qual o valor da taxa de entrega?",
+          resposta: "A maioria das nossas entregas não tem custo! Dependendo da distância e do pedido, existe uma pequena taxa de entrega.\n\n[Clique aqui para consultar sua entrega no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
         },
         {
-          id: "sl4",
-          pergunta: "Cobram taxa de entrega?",
-          resposta: "Dependendo da distância e do pedido existe uma pequena taxa de entrega, mas a maioria das entregas não tem custo!"
+          id: "e-pix",
+          pergunta: "Qual a chave Pix da Superlimpo?",
+          resposta: "Nossa chave Pix é o número de telefone celular: 67993174612.\n\n[Clique aqui para confirmar seu pagamento no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+        },
+        {
+          id: "e-nf",
+          pergunta: "Vocês emitem Nota Fiscal?",
+          resposta: "Não emitimos Nota Fiscal, trabalhamos apenas com Recibo.\n\n[Clique aqui para falar no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+        },
+        {
+          id: "e-regioes",
+          pergunta: "Quais regiões vocês atendem?",
+          resposta: "Entregamos em toda a região de Ponta Porã MS e Pedro Juan Caballero!\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
         }
       ],
       produtos: [
         {
-          id: "slp1",
-          pergunta: "Qual o valor do kit dona de casa?",
-          resposta: "O Kit Dona de Casa vem com Água Sanitária 5L + Desinfetante 5L + Sabão de Álcool 5L (todos os 3 galões) por apenas R$ 38,00!"
+          id: "p-kit",
+          pergunta: "Quanto custa o Kit Dona de Casa?",
+          resposta: "O Kit de Produto (Água Sanitária 5L, Desinfetante 5L e Sabão de Álcool 5L) sai todos os 3 galões por apenas R$ 38,00!\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
         },
         {
-          id: "slp2",
-          pergunta: "Como pedir pelo WhatsApp?",
-          resposta: "Basta clicar no link https://api.whatsapp.com/send?phone=5567998342469 ou adicionar o número (67) 99834-2469 para enviar seu pedido."
+          id: "p-agua",
+          pergunta: "Qual o preço da Água Sanitária?",
+          resposta: "Água sanitária (5 litros) custa R$ 12,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+        },
+        {
+          id: "p-cloro",
+          pergunta: "Qual o preço do Cloro Ativo 12%?",
+          resposta: "Cloro Ativo 12% (5 litros) custa R$ 45,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+        },
+        {
+          id: "p-desinfetante",
+          pergunta: "Quanto custa o Desinfetante Perfumado?",
+          resposta: "Desinfetante Perfumado (5 litros) custa R$ 15,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+        },
+        {
+          id: "p-sabao-alcool",
+          pergunta: "Qual o valor do Sabão de Álcool?",
+          resposta: "Sabão de álcool - feito com óleo novo (5 litros) custa R$ 15,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+        },
+        {
+          id: "p-sabao-azul",
+          pergunta: "Quanto custa o Sabão Lava Roupas Azul?",
+          resposta: "Sabão Lava Roupas Azul (5 litros) custa R$ 35,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+        },
+        {
+          id: "p-amaciante",
+          pergunta: "Quanto custa o Amaciante de Roupa?",
+          resposta: "Amaciante de roupa (5 litros) custa R$ 25,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+        },
+        {
+          id: "p-alvejante",
+          pergunta: "Quanto custa o Alvejante sem Cloro?",
+          resposta: "Alvejante sem cloro - Tipo Vanish (5 litros) custa R$ 30,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+        },
+        {
+          id: "p-lava-loucas",
+          pergunta: "Quanto custa o Lava Louças?",
+          resposta: "Lava louças (5 litros) custa R$ 25,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+        },
+        {
+          id: "p-limpa-pedras",
+          pergunta: "Quanto custa o Limpa Pedras?",
+          resposta: "Limpa Pedras (5 litros) custa R$ 30,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+        },
+        {
+          id: "p-porcelanato",
+          pergunta: "Quanto custa o Limpa Porcelanato & Cerâmica?",
+          resposta: "Limpa Porcelanato & Cerâmica (5 litros) custa R$ 30,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+        },
+        {
+          id: "p-empresas",
+          pergunta: "Quais os produtos da Linha Empresas?",
+          resposta: "Nossos produtos da Linha Empresas (galões de 5 litros) custam R$ 30,00 cada:\n• Limpa Chapas (5L): R$ 30,00\n• Brilho Alumínio (5L): R$ 30,00\n• Shampoo Automotivo (5L): R$ 30,00\n• Desengraxante Automotivo (5L): R$ 30,00\n• Ativado (5L): R$ 30,00\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
         }
       ]
     },
@@ -474,7 +488,12 @@ SE NÃO SOUBER DIGA: "Vou passar para o atendimento humano: https://api.whatsapp
       telefone: "67998342469",
       email: "superlimpoprodutos@gmail.com"
     },
-    footer: "Superlimpo Produtos de Limpeza · Conectacard NFC"
+    mapa: {
+      title: "Superlimpo no Google",
+      link: "https://share.google/UCCXWFvQdBxv3jnTb",
+      embed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117079.1764654575!2d-55.79251846506348!3d-22.53609825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x946269222fb39fa5%3A0xb35a0937a0a55288!2sPonta%20Por%C3%A3%20-%20MS!5e0!3m2!1spt-BR!2sbr!4v1714488392000!5m2!1spt-BR!2sbr"
+    },
+    footer: "Superlimpo Produtos de Limpeza"
   }
 };
 

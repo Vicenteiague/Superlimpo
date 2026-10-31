@@ -173,7 +173,7 @@ export const conectacardData: BiositeData = {
       id: "instagram",
       title: "Instagram",
       image: "/assets/instagram-refined-BsHeVKuq.jpg",
-      url: "https://instagram.com/conectacardpp"
+      url: "https://www.instagram.com/superlimpoprodutosdelimpeza?exln=YTQxenNhaXB0ejdn"
     },
     {
       id: "website",
@@ -183,8 +183,8 @@ export const conectacardData: BiositeData = {
     }
   ],
   mapa: {
-    title: "Start Mkt Local no Google Maps",
-    link: "https://www.google.com/maps/search/?api=1&query=Start+Mkt+Local+-+Rua+Luiz+Pinto+Magalh%C3%A3es,+154+-+Santa+Isabel,+Ponta+Por%C3%A3+-+MS",
+    title: "Superlimpo no Google Maps",
+    link: "https://share.google/UCCXWFvQdBxv3jnTb",
     embed: "https://www.openstreetmap.org/export/embed.html?bbox=-55.7332969%2C-22.5356989%2C-55.6932969%2C-22.5156989&layer=mapnik&marker=-22.5256989%2C-55.7132969"
   },
   contato: {
@@ -192,223 +192,139 @@ export const conectacardData: BiositeData = {
     telefone: "67993174612",
     email: "startmktlocal@gmail.com"
   },
-  footer: "Conectacard Cartão NFC",
+  footer: "Superlimpo Produtos de Limpeza",
   atendimento: {
-    saudacao: "Olá! Qual é a sua dúvida?",
-    conhecimento: `BANCO DE DADOS 1 - CONECTACARD, BIOSITEAI & START MKT LOCAL:
-O BiositeAi é um mini site inteligente com biosite interativo, atendente virtual LIA com IA, cartões NFC e plaquinhas com QR Code.
-Fazemos criação de Sites profissionais, plaquinhas NFC e QR Code, placas de avaliação do Google (AvaliaCard), biosite com atendente virtual e inteligência artificial. Tenha todos os seus links e redes sociais em um só lugar. Não são aqueles chats de aperte 1 ou 2, são respostas reais. Somos uma empresa de Ponta Porã (MS) e atendemos presencialmente toda a fronteira. E atendimento a todo Brasil via Correios com código de rastreamento.
-Contato Conectacard: WhatsApp (67) 99317-4612, E-mail: startmktlocal@gmail.com, Site: https://www.startmktlocal.com.br/
-
-NOSSOS PREÇOS BIOSITEAI:
-1. Biosites sem Chatbot somente o link: Preço promocional R$ 99,00
-2. Biosites com Chatbot e atendente Virtual + Plaquinha NFC ou Cartão NFC: R$ 147,00 + manutenção do Chatbot Atendente virtual IA a partir de R$ 49,90 Mês.
-
-BANCO DE DADOS 2 - SUPERLIMPO PRODUTOS DE LIMPEZA:
-Somos a Superlimpo vendemos produtos de limpeza.
-WhatsApp: (67) 99834-2469
-Link WhatsApp: https://api.whatsapp.com/send?phone=5567998342469
+    saudacao: "Olá! Eu sou a LIA, atendente virtual inteligente da Superlimpo. Estou aqui para tirar suas dúvidas sobre nossos produtos, preços e entregas. Como posso ajudar você hoje?",
+    conhecimento: `Agente Virtual: LIA
+Empresa: Superlimpo Produtos de Limpeza — O maior Delivery de Produtos de Limpeza da fronteira.
+WhatsApp: 67 99834-2469 (67998342469)
+Link do WhatsApp: https://api.whatsapp.com/send?phone=5567998342469
 Nosso Site: https://superlimpoprodutosdelimpeza.lovable.app/
-Não tem loja física. Apenas entrega em toda região de Ponta Porã e Pedro Juan Caballero.
-Horários de entrega: As entregas são feitas até às 16 horas. Aos sábados somente às 7:00 horas e às 15:30 horas.
-Nota Fiscal: Não temos Nota Fiscal apenas Recibo.
-Taxa de entrega: Dependendo da distância e do pedido existe uma pequena taxa de entrega. Mas a maioria das entregas não tem custo.
+Chave Pix: 67993174612
+Instagram: https://www.instagram.com/superlimpoprodutosdelimpeza?exln=YTQxenNhaXB0ejdn
+Perfil no Google: https://g.co/kgs/NzjgPj
+Como Chegar: https://maps.app.goo.gl/WP6PrQUTYoC1ZQ5Y9
 
-Tabela de produtos Superlimpo:
-Linha dona de casa:
-- Kit de Produto com (Água sanitária 5L, Desinfetante 5L e Sabão de álcool 5L) todos os 3 por R$ 38,00
-- Água sanitária 5 litros: R$ 12,00
-- Cloro Ativo 12% 5 litros: R$ 45,00
-- Desinfetante Perfumado 5 litros: R$ 15,00
-- Sabão de álcool (Feito com óleo novo) 5 litros: R$ 15,00
+REGRAS DE OPERAÇÃO, ENTREGA E PAGAMENTO:
+- Loja Física: Não temos loja física. Trabalhamos apenas com entrega em toda a região de Ponta Porã e Pedro Juan Caballero.
+- Horários de Entrega (Segunda a Sexta): As entregas são feitas até às 16:00 horas.
+- Horários de Entrega (Sábados): Aos sábados somente às 07:00 horas e às 15:30 horas.
+- Taxa de Entrega: A maioria das entregas não tem custo. Dependendo da distância e do pedido, existe uma pequena taxa de entrega.
+- Documento Fiscal: Não temos Nota Fiscal, apenas Recibo.
+- Pagamento via Pix: Chave Pix 67993174612.
+
+TABELA DE PRODUTOS E PREÇOS:
+Linha Dona de Casa:
+- Kit de Produto (Água sanitária 5L, Desinfetante 5L e Sabão de álcool 5L): Todos os 3 por R$ 38,00
+- Água sanitária (5 litros): R$ 12,00
+- Cloro Ativo 12% (5 litros): R$ 45,00
+- Desinfetante Perfumado (5 litros): R$ 15,00
+- Sabão de álcool - Feito com óleo novo (5 litros): R$ 15,00
 - Sabão Lava Roupas Azul: R$ 35,00
-- Amaciante de roupa 5 litros: R$ 25,00
-- Alvejante sem cloro 5 litros (Tipo Vanish): R$ 30,00
-- Lava louças 5 litros: R$ 25,00
-- Limpa Pedras 5 litros: R$ 30,00
-- Limpa Porcelanato & Cerâmica 5 litros: R$ 30,00
+- Amaciante de roupa (5 litros): R$ 25,00
+- Alvejante sem cloro - Tipo Vanish (5 litros): R$ 30,00
+- Lava louças (5 litros): R$ 25,00
+- Limpa Pedras (5 litros): R$ 30,00
+- Limpa Porcelanato & Cerâmica (5 litros): R$ 30,00
 
-Linha empresas:
-- Limpa Chapas 5 litros: R$ 30,00
-- Brilho alumínio 5 litros: R$ 30,00
-- Shampoo Automotivo 5 litros: R$ 30,00
-- Desengraxante Automotivo 5 litros: R$ 30,00
-- Ativado 5L: R$ 30,00
-
-REGRA OBRIGATÓRIA DA IA:
-NÃO INVENTAR. NÃO ALUCINAR.
-SE NÃO SOUBER com certeza a resposta, diga exatamente: "Vou passar para o atendimento humano: https://api.whatsapp.com/send?phone=5567998342469".
-
-BANCO DE DADOS 3 - START MKT LOCAL & AGENTE LIA (NOVO CONHECIMENTO):
-1. IDENTIDADE E OBJETIVO:
-- Nome do Agente: LIA
-- Empresa: Start Mkt Local
-- Papel: Especialista de atendimento e vendas.
-- Tom de Voz: Direto, simpático, consultivo e focado em conversão (mensagens curtas, ideais para leitura no celular).
-- Objetivo Principal: Tirar dúvidas sobre o catálogo e conduzir o cliente para o fechamento no WhatsApp.
-
-2. DADOS DA EMPRESA (Fatos Gerais):
-- O que fazemos: Agência de marketing digital
-- Localização: Ponta Porã MS atuamos em todo Brasil
-- Horário de Funcionamento: Segunda a Sexta, das 08h às 18h | Sábado, das 08h às 12h.
-- Formas de Pagamento: PIX, Cartão em até 3x sem juros, Cartão de Débito.
-- Link de Contato/WhatsApp: https://wa.me//5567993174512
-- Link de Contato/Website: https://www.startmktlocal.com.br/
-
-3. CATÁLOGO DE PRODUTOS E SERVIÇOS:
-• Produto/Serviço 1: Criação de Sites
-  - Para quem é indicado: Empresas em geral
-  - O que inclui: Destaque no meio digital
-  - Prazo de entrega: 7 dias
-  - Valor: A partir R$ 500,00
-
-• Produto/Serviço 2: Gestor Google meu Negócio
-  - Para quem é indicado: Empresas de todo o Brasil
-  - O que inclui: Criação e gestão de perfis de empresas no Google
-  - Valor: R$ A combinar
-
-• Produto/Serviço 3: Criação de Biosites com atendimento Virtual
-  - Modelo de Biosite: https://vicenteiaguebiositegoogleia.vercel.app/
-  - Para quem é indicado: Empresas de todo o Brasil
-  - O que inclui: Criação de Biosites com atendimento 24 hrs por agentes de IA treinado para saber tudo da sua empresa
-  - Valor: R$ 167,00 mais R$ 50,00 Mês de manutenção do Agente de IA
-
-• Produto/Serviço 4: Gestor de tráfego Meta Ads
-  - Para quem é indicado: Empresas de todo o Brasil
-  - O que inclui: Criação de campanhas de marketing na Meta Ads
-  - Valor: R$ A combinar
-
-• Produto/Serviço 5: Criação de Agente de IA para atendimento no whatsapp
-  - Para quem é indicado: Empresas de todo o Brasil
-  - O que inclui: Criação de Agentes de IA no whatsapp da empresa responsável pelo atendimento e conhecimento total da empresa
-  - Valor: R$ A combinar
-
-• Produto/Serviço 6: Criação do Avaliacard cartão NFC e QR Code de avaliação do Google
-  - Website: https://avaliacard.vercel.app/
-  - Para quem é indicado: Empresas de todo o Brasil
-  - O que inclui: Criação do cartão NFC e QR Code com link direto na página de avaliação do Google
-  - Valor: R$ 89,00 + Frete grátis
-
-4. FAQ E QUEBRA DE OBJEÇÕES:
-- Pergunta: Vocês dão desconto se eu fechar hoje?
-  Resposta: No pagamento via PIX já aplicamos 5% de desconto imediato! Se você quiser fechar um pacote com mais de um item, posso chamar nosso especialista no WhatsApp para liberar uma condição especial para você.
-- Pergunta: Como funciona a garantia?
-  Resposta: Você tem 15 dias de garantia total. Se tiver qualquer problema, resolvemos sem burocracia.
-- Pergunta: Achei o valor alto / Vou pensar.
-  Resposta: Entendo perfeitamente! Mas vale lembrar que todos os nossos produtos são de alto desempenho para alavancagem dos Negócios Locais, o que economiza tempo e dinheiro para você. Quer que eu te mostre a opção de parcelamento para caber tranquilo no seu orçamento?
-
-5. REGRAS DE OURO:
-- Todos os links enviados DEVEM ser clicáveis.
-- Fidelidade aos Dados: Responda APENAS com base nas informações. Se o cliente perguntar algo que não está neste documento, diga: "Para te confirmar esse detalhe específico sem erro, vou te passar o contato direto do nosso especialista: https://wa.me//5567993174512".
-- Proibido inventar preços, prazos ou serviços.
-- Formatação: Nunca envie blocos gigantes de texto. Use no máximo 3 linhas por parágrafo e termine sempre com uma pergunta que leve o cliente para o próximo passo.`,
+Linha Empresas (5 litros):
+- Limpa Chapas (5 litros): R$ 30,00
+- Brilho alumínio (5 litros): R$ 30,00
+- Shampoo Automotivo (5 litros): R$ 30,00
+- Desengraxante Automotivo (5 litros): R$ 30,00
+- Ativado (5L): R$ 30,00`,
     empresa: [
       {
-        id: "sobre",
-        pergunta: "O que a empresa oferece?",
-        resposta: "A Conectacard oferece cartões NFC personalizados, biolinks para Instagram e WhatsApp e plaquinhas com QR Code e NFC. A Start Mkt Local também oferece criação de sites, perfil de empresas no Google, SEO e tráfego pago."
+        id: "e-loja",
+        pergunta: "Tem loja física para retirar?",
+        resposta: "Não temos loja física! A Superlimpo trabalha exclusivamente com entregas rápidas em toda a região de Ponta Porã e Pedro Juan Caballero.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
-        id: "local",
-        pergunta: "Onde vocês estão?",
-        resposta: "Start Mkt Local, em Ponta Porã, MS. Você encontra nossa localização no mapa abaixo e pode nos visitar ou agendar uma consultoria presencial na região de fronteira!"
+        id: "e-horarios",
+        pergunta: "Quais os horários de entrega?",
+        resposta: "Nossos horários de entrega são:\n• Segunda a Sexta: entregas até às 16:00 horas.\n• Sábados: entregas às 07:00 horas e às 15:30 horas.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
-        id: "contato",
-        pergunta: "Como entro em contato?",
-        resposta: "WhatsApp: (67) 99317-4612. E-mail: startmktlocal@gmail.com. Atendemos de segunda a sábado com suporte ágil para tirar todas as dúvidas."
+        id: "e-taxa",
+        pergunta: "Qual o valor da taxa de entrega?",
+        resposta: "A maioria das nossas entregas não tem custo! Dependendo da distância e do pedido, existe uma pequena taxa de entrega.\n\n[Clique aqui para consultar sua entrega no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
-        id: "precos-biosite",
-        pergunta: "Quanto custa o Biosite?",
-        resposta: "Nossos Preços:\n1. Biosites sem Chatbot somente o link: Preço promocional R$ 99,00\n2. Biosites com Chatbot e atendente Virtual + Plaquinha NFC ou Cartão NFC: R$ 147,00 + manutenção do Chatbot Atendente virtual IA a partir de R$ 49,90 Mês."
+        id: "e-pix",
+        pergunta: "Qual a chave Pix da Superlimpo?",
+        resposta: "Nossa chave Pix é o número de telefone celular: 67993174612.\n\n[Clique aqui para confirmar seu pagamento no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
-        id: "start-horario",
-        pergunta: "Qual o horário de funcionamento da Start Mkt Local?",
-        resposta: "Segunda a Sexta, das 08h às 18h | Sábado, das 08h às 12h."
+        id: "e-nf",
+        pergunta: "Vocês emitem Nota Fiscal?",
+        resposta: "Não emitimos Nota Fiscal, trabalhamos apenas com Recibo.\n\n[Clique aqui para falar no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
-        id: "start-pagamento",
-        pergunta: "Quais as formas de pagamento aceitas?",
-        resposta: "Aceitamos PIX (com 5% de desconto imediato!), Cartão de Crédito em até 3x sem juros e Cartão de Débito."
-      },
-      {
-        id: "start-garantia",
-        pergunta: "Como funciona a garantia dos serviços?",
-        resposta: "Você tem 15 dias de garantia total! Se tiver qualquer problema, resolvemos sem burocracia."
+        id: "e-regioes",
+        pergunta: "Quais regiões vocês atendem?",
+        resposta: "Entregamos em toda a região de Ponta Porã MS e Pedro Juan Caballero!\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       }
     ],
     produtos: [
       {
-        id: "nfc",
-        pergunta: "Como funciona o cartão NFC?",
-        resposta: "Com um simples toque do cartão em qualquer celular moderno compatível com NFC (iPhone ou Android), seus contatos, localização, redes sociais e catálogo abrem instantaneamente na tela, sem precisar digitar nada ou baixar aplicativos!"
+        id: "p-kit",
+        pergunta: "Quanto custa o Kit Dona de Casa?",
+        resposta: "O Kit de Produto (Água Sanitária 5L, Desinfetante 5L e Sabão de Álcool 5L) sai todos os 3 galões por apenas R$ 38,00!\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
-        id: "personalizado",
-        pergunta: "O cartão é personalizado?",
-        resposta: "Sim! A Conectacard oferece cartões NFC 100% personalizados com a identidade visual da sua marca, logotipo, cores, além de biolinks e plaquinhas com QR Code e NFC para balcões e mesas. Fale conosco pelo WhatsApp para combinar os detalhes da sua arte."
+        id: "p-agua",
+        pergunta: "Qual o preço da Água Sanitária?",
+        resposta: "Água sanitária (5 litros) custa R$ 12,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
-        id: "criacao-sites",
-        pergunta: "Quanto custa a Criação de Sites?",
-        resposta: "Criação de Sites para empresas com destaque digital completo a partir de R$ 500,00, entregue em apenas 7 dias! Quer que eu te passe mais detalhes no WhatsApp: https://wa.me//5567993174512 ?"
+        id: "p-cloro",
+        pergunta: "Qual o preço do Cloro Ativo 12%?",
+        resposta: "Cloro Ativo 12% (5 litros) custa R$ 45,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
-        id: "biosite-ia",
-        pergunta: "Quanto custa o Biosite com atendimento Virtual?",
-        resposta: "Criação de Biosites com atendimento 24h por agentes de IA treinados: R$ 167,00 + R$ 50,00/mês de manutenção. Veja o modelo: https://vicenteiaguebiositegoogleia.vercel.app/ - Deseja personalizar o seu hoje?"
+        id: "p-desinfetante",
+        pergunta: "Quanto custa o Desinfetante Perfumado?",
+        resposta: "Desinfetante Perfumado (5 litros) custa R$ 15,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
-        id: "avaliacard-preco",
-        pergunta: "Quanto custa o Avaliacard?",
-        resposta: "Avaliacard (cartão NFC e QR Code para avaliação no Google): R$ 89,00 + Frete grátis! Conheça: https://avaliacard.vercel.app/ - Quer receber o seu?"
+        id: "p-sabao-alcool",
+        pergunta: "Qual o valor do Sabão de Álcool?",
+        resposta: "Sabão de álcool - feito com óleo novo (5 litros) custa R$ 15,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
-        id: "gestor-google",
-        pergunta: "Como funciona o Gestor Google Meu Negócio?",
-        resposta: "Criação e gestão completa de perfis de empresas no Google com valor a combinar. Vamos agendar para avaliar sua empresa no WhatsApp: https://wa.me//5567993174512 ?"
+        id: "p-sabao-azul",
+        pergunta: "Quanto custa o Sabão Lava Roupas Azul?",
+        resposta: "Sabão Lava Roupas Azul (5 litros) custa R$ 35,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
-        id: "trafego-meta",
-        pergunta: "Como funciona o Gestor de Tráfego Meta Ads?",
-        resposta: "Criação e otimização de campanhas de anúncios na Meta Ads (Instagram e Facebook) com valor a combinar. Deseja atrair mais clientes para seu negócio?"
+        id: "p-amaciante",
+        pergunta: "Quanto custa o Amaciante de Roupa?",
+        resposta: "Amaciante de roupa (5 litros) custa R$ 25,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
-        id: "agente-whatsapp",
-        pergunta: "Como funciona o Agente de IA para WhatsApp?",
-        resposta: "Criamos um Agente de IA oficial no WhatsApp da sua empresa, responsável por atender clientes 24h com conhecimento total do seu catálogo. Valor a combinar. Quer ver uma demonstração?"
+        id: "p-alvejante",
+        pergunta: "Quanto custa o Alvejante sem Cloro?",
+        resposta: "Alvejante sem cloro - Tipo Vanish (5 litros) custa R$ 30,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
-        id: "produtos",
-        pergunta: "Quais produtos de limpeza aparecem no cartão?",
-        resposta: "A seção da Superlimpo apresenta Desinfetante, Água Sanitária, Kit de Produtos (com 3 galões de 5L), Desincrust e Sabão de Álcool. O botão azul 'Nossos Produtos' abre o catálogo completo da fábrica com entregas em Ponta Porã e Pedro Juan Caballero."
+        id: "p-lava-loucas",
+        pergunta: "Quanto custa o Lava Louças?",
+        resposta: "Lava louças (5 litros) custa R$ 25,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
-        id: "orcamento",
-        pergunta: "Quanto custam os produtos Superlimpo?",
-        resposta: "Tabela de Produtos Superlimpo:\n\nLinha Dona de Casa:\n• Kit de Produto com (Água sanitária 5L, Desinfetante 5L e Sabão de álcool 5L) todos os 3 por R$ 38,00\n• Água sanitária 5 litros: R$ 12,00\n• Cloro Ativo 12% 5 litros: R$ 45,00\n• Desinfetante Perfumado 5 litros: R$ 15,00\n• Sabão de álcool (Feito com óleo novo) 5 litros: R$ 15,00\n• Sabão Lava Roupas Azul: R$ 35,00\n• Amaciante de roupa 5 litros: R$ 25,00\n• Alvejante sem cloro 5 litros (Tipo Vanish): R$ 30,00\n• Lava louças 5 litros: R$ 25,00\n• Limpa Pedras 5 litros: R$ 30,00\n• Limpa Porcelanato & Cerâmica 5 litros: R$ 30,00\n\nLinha Empresas:\n• Limpa Chapas 5 litros: R$ 30,00\n• Brilho alumínio 5 litros: R$ 30,00\n• Shampoo Automotivo 5 litros: R$ 30,00\n• Desengraxante Automotivo 5 litros: R$ 30,00\n• Ativado 5L: R$ 30,00\n\nPeça pelo WhatsApp: https://api.whatsapp.com/send?phone=5567998342469\nSite: https://superlimpoprodutosdelimpeza.lovable.app/"
+        id: "p-limpa-pedras",
+        pergunta: "Quanto custa o Limpa Pedras?",
+        resposta: "Limpa Pedras (5 litros) custa R$ 30,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
-        id: "horario-entrega",
-        pergunta: "Quais os horários de entrega da Superlimpo?",
-        resposta: "As entregas são feitas até às 16 horas. Aos sábados somente às 7:00 horas e às 15:30 horas em toda Ponta Porã e Pedro Juan Caballero."
+        id: "p-porcelanato",
+        pergunta: "Quanto custa o Limpa Porcelanato & Cerâmica?",
+        resposta: "Limpa Porcelanato & Cerâmica (5 litros) custa R$ 30,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
-        id: "nota-fiscal",
-        pergunta: "Vocês emitem Nota Fiscal?",
-        resposta: "Não temos Nota Fiscal, apenas Recibo."
-      },
-      {
-        id: "taxa-entrega",
-        pergunta: "Tem taxa de entrega dos produtos de limpeza?",
-        resposta: "Dependendo da distância e do pedido existe uma pequena taxa de entrega, mas a maioria das entregas não tem custo!"
-      },
-      {
-        id: "zap-superlimpo",
-        pergunta: "Qual o WhatsApp da Superlimpo?",
-        resposta: "O WhatsApp da Superlimpo é (67) 99834-2469. Link direto: https://api.whatsapp.com/send?phone=5567998342469"
+        id: "p-empresas",
+        pergunta: "Quais os produtos da Linha Empresas?",
+        resposta: "Nossos produtos da Linha Empresas (galões de 5 litros) custam R$ 30,00 cada:\n• Limpa Chapas (5L): R$ 30,00\n• Brilho Alumínio (5L): R$ 30,00\n• Shampoo Automotivo (5L): R$ 30,00\n• Desengraxante Automotivo (5L): R$ 30,00\n• Ativado (5L): R$ 30,00\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       }
     ]
   },

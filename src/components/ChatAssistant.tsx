@@ -89,7 +89,7 @@ export function ChatAssistant({ data }: ChatAssistantProps) {
     {
       id: "init-lia",
       role: "assistant",
-      text: "Olá! Eu sou a LIA, assistente virtual inteligente da Conectacard. Estou aqui para tirar suas dúvidas, apresentar nossos serviços e ajudar você a encontrar a melhor solução. Pode perguntar!",
+      text: data.atendimento.saudacao || "Olá! Como posso ajudar você hoje?",
     },
   ]);
   const [inputVal, setInputVal] = useState("");
@@ -98,16 +98,11 @@ export function ChatAssistant({ data }: ChatAssistantProps) {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const clientCache = useRef<Map<string, string>>(new Map());
 
+  // Sugestões extraídas dinamicamente das perguntas configuradas no cliente
   const sugestoes = [
-    "Quais são os serviços?",
-    "Quanto custa?",
-    "Criação de Sites",
-    "Biosite com IA",
-    "AvaliaCard",
-    "Qual o site da Superlimpo?",
-    "Produtos Superlimpo",
-    "Como funciona o cartão NFC?",
-  ];
+    ...(data.atendimento.empresa || []),
+    ...(data.atendimento.produtos || []),
+  ].map((i) => i.pergunta);
 
   // Auto-scroll on new message
   useEffect(() => {
@@ -116,247 +111,125 @@ export function ChatAssistant({ data }: ChatAssistantProps) {
     }
   }, [messages, isTyping]);
 
-  const TABELA_COMPLETA_SUPERLIMPO = `Somos a Superlimpo vendemos produtos de limpeza!
-
-📍 Não temos loja física. Apenas entrega em toda região de Ponta Porã e Pedro Juan Caballero.
-⏰ Horários de entrega: até às 16 horas. Aos sábados somente às 7:00 horas e às 15:30 horas.
-📄 Não temos Nota Fiscal, apenas Recibo.
-🚚 A maioria das entregas não tem custo (pequena taxa dependendo da distância e pedido).
-
-📋 TABELA DE PRODUTOS SUPERLIMPO:
-
-Linha Dona de Casa:
-• Kit de Produto com (Água sanitária 5L, Desinfetante 5L e Sabão de álcool 5L) todos os 3 por R$ 38,00
-• Água sanitária 5 litros: R$ 12,00
-• Cloro Ativo 12% 5 litros: R$ 45,00
-• Desinfetante Perfumado 5 litros: R$ 15,00
-• Sabão de álcool (Feito com óleo novo) 5 litros: R$ 15,00
-• Sabão Lava Roupas Azul: R$ 35,00
-• Amaciante de roupa 5 litros: R$ 25,00
-• Alvejante sem cloro 5 litros (Tipo Vanish): R$ 30,00
-• Lava louças 5 litros: R$ 25,00
-• Limpa Pedras 5 litros: R$ 30,00
-• Limpa Porcelanato & Cerâmica 5 litros: R$ 30,00
-
-Linha Empresas:
-• Limpa Chapas 5 litros: R$ 30,00
-• Brilho alumínio 5 litros: R$ 30,00
-• Shampoo Automotivo 5 litros: R$ 30,00
-• Desengraxante Automotivo 5 litros: R$ 30,00
-• Ativado 5L: R$ 30,00
-
-📲 Peça pelo WhatsApp: https://api.whatsapp.com/send?phone=5567998342469
-🌐 Nosso Site: https://superlimpoprodutosdelimpeza.lovable.app/`;
-
-  const TABELA_PRECOS_BIOSITEAI = `Nossos Preços:
-
-1️⃣ Biosites sem Chatbot somente o link: Preço promocional R$ 99,00
-
-2️⃣ Biosites com Chatbot e atendente Virtual + Plaquinha NFC ou Cartão NFC: R$ 147,00 + manutenção do Chatbot Atendente virtual IA a partir de R$ 49,90 Mês.
-
-Peça o seu pelo WhatsApp: https://wa.me/5567993174612`;
+  const defaultFallback =
+    "Vou passar para o atendimento humano: [Clique aqui para falar no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
 
   const findSmartResponse = (query: string): string => {
-    const q = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const q = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
 
-    // 1. Superlimpo: Horários de entrega
-    if (q.includes("horario") || q.includes("que horas") || q.includes("sabado") || (q.includes("entrega") && (q.includes("hora") || q.includes("quando") || q.includes("tempo")))) {
-      return "As entregas da Superlimpo são feitas até às 16 horas. Aos sábados somente às 7:00 horas e às 15:30 horas em toda Ponta Porã e Pedro Juan Caballero.";
-    }
+    // 1. Busca exata nas perguntas e respostas cadastradas
+    const allFaqs = [
+      ...(data.atendimento.empresa || []),
+      ...(data.atendimento.produtos || []),
+    ];
 
-    // 2. Superlimpo: Nota Fiscal / Recibo
-    if (q.includes("nota") || q.includes("fiscal") || q.includes("recibo") || q.includes("comprovante")) {
-      return "Não temos Nota Fiscal, apenas Recibo.";
-    }
-
-    // 3. Superlimpo: Taxa de entrega / Frete
-    if (q.includes("taxa") || q.includes("frete") || (q.includes("quanto") && q.includes("entrega"))) {
-      return "Dependendo da distância e do pedido existe uma pequena taxa de entrega. Mas a maioria das entregas não tem custo!";
-    }
-
-    // 4. Superlimpo: Loja física
-    if (q.includes("loja") || q.includes("fisica") || q.includes("onde fica a loja") || q.includes("tem loja")) {
-      return "Não temos loja física. Trabalhamos exclusivamente com entregas em toda a região de Ponta Porã e Pedro Juan Caballero!";
-    }
-
-    // 5. Sites oficiais
-    if (q.includes("site") || q.includes("link do site") || q.includes("pagina") || q.includes("catalogo online")) {
-      if (q.includes("superlimpo") || q.includes("limpeza") || q.includes("produto")) {
-        return "O site oficial da Superlimpo é: https://superlimpoprodutosdelimpeza.lovable.app/\n\nLá você confere nosso catálogo completo de produtos direto de fábrica e pode pedir com entrega rápida em Ponta Porã e Pedro Juan Caballero!";
+    for (const faq of allFaqs) {
+      const qNorm = faq.pergunta.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+      if (q.includes(qNorm) || qNorm.includes(q)) {
+        return faq.resposta;
       }
-      return "Nosso site oficial da Start Mkt Local / Conectacard é: https://www.startmktlocal.com.br/\nE o site da Superlimpo é: https://superlimpoprodutosdelimpeza.lovable.app/";
     }
 
-    // 6. Superlimpo: Tabela completa de produtos e preços (quando pergunta por produtos de limpeza, superlimpo, tabela, kit, sabao, etc.)
-    const isSuperlimpoQuery =
-      q.includes("superlimpo") ||
-      q.includes("limpeza") ||
-      q.includes("sabao") ||
-      q.includes("desinfetante") ||
-      q.includes("cloro") ||
-      q.includes("amaciante") ||
-      q.includes("alvejante") ||
-      q.includes("detergente") ||
-      q.includes("lava loucas") ||
-      q.includes("limpa pedras") ||
-      q.includes("porcelanato") ||
-      q.includes("limpa chapas") ||
-      q.includes("brilho aluminio") ||
-      q.includes("shampoo automotivo") ||
+    // 2. Busca semântica por produtos e termos-chave da Superlimpo
+    if (q.includes("kit") || q.includes("dona de casa") || (q.includes("3") && q.includes("38"))) {
+      return "O Kit de Produto (Água Sanitária 5L, Desinfetante 5L e Sabão de Álcool 5L) sai todos os 3 galões por apenas R$ 38,00!\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+    }
+
+    if (q.includes("cloro") || q.includes("ativo 12%")) {
+      return "Cloro Ativo 12% (5 litros) custa R$ 45,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+    }
+
+    if (q.includes("agua sanitaria") || q.includes("sanitaria") || q.includes("candida")) {
+      return "Água sanitária (5 litros) custa R$ 12,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+    }
+
+    if (q.includes("desinfetante") || q.includes("perfumado")) {
+      return "Desinfetante Perfumado (5 litros) custa R$ 15,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+    }
+
+    if (q.includes("alcool") || q.includes("oleo novo") || (q.includes("sabao") && q.includes("alcool"))) {
+      return "Sabão de álcool - feito com óleo novo (5 litros) custa R$ 15,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+    }
+
+    if (q.includes("azul") || q.includes("lava roupas") || q.includes("lava roupa") || q.includes("sabao liquido")) {
+      return "Sabão Lava Roupas Azul (5 litros) custa R$ 35,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+    }
+
+    if (q.includes("amaciante")) {
+      return "Amaciante de roupa (5 litros) custa R$ 25,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+    }
+
+    if (q.includes("alvejante") || q.includes("vanish") || q.includes("sem cloro")) {
+      return "Alvejante sem cloro - Tipo Vanish (5 litros) custa R$ 30,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+    }
+
+    if (q.includes("louca") || q.includes("loucas") || q.includes("detergente")) {
+      return "Lava louças (5 litros) custa R$ 25,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+    }
+
+    if (q.includes("pedra") || q.includes("pedras") || q.includes("limpa pedra")) {
+      return "Limpa Pedras (5 litros) custa R$ 30,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+    }
+
+    if (q.includes("porcelanato") || q.includes("ceramica") || q.includes("piso")) {
+      return "Limpa Porcelanato & Cerâmica (5 litros) custa R$ 30,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+    }
+
+    if (
+      q.includes("empresa") ||
+      q.includes("empresas") ||
+      q.includes("chapa") ||
+      q.includes("chapas") ||
+      q.includes("aluminio") ||
+      q.includes("shampoo") ||
+      q.includes("automotivo") ||
       q.includes("desengraxante") ||
-      q.includes("ativado") ||
-      (q.includes("kit") && !q.includes("nfc"));
-
-    if (isSuperlimpoQuery) {
-      // Itens específicos rápidos
-      if (q.includes("kit") && (q.includes("quanto") || q.includes("preco") || q.includes("valor") || q.includes("como e"))) {
-        return "Nosso Kit Econômico Dona de Casa vem com 3 galões de 5 litros (Água Sanitária 5L, Desinfetante 5L e Sabão de Álcool 5L) todos os 3 por apenas R$ 38,00!\n\nPeça pelo WhatsApp: https://api.whatsapp.com/send?phone=5567998342469";
-      }
-      if (q.includes("cloro") && (q.includes("quanto") || q.includes("preco") || q.includes("valor"))) {
-        return "Cloro Ativo 12% 5 litros: R$ 45,00 (e Água Sanitária 5 litros: R$ 12,00).\nPeça pelo WhatsApp: https://api.whatsapp.com/send?phone=5567998342469";
-      }
-      if (q.includes("amaciante") && (q.includes("quanto") || q.includes("preco") || q.includes("valor"))) {
-        return "Amaciante de roupa 5 litros: R$ 25,00.\nPeça pelo WhatsApp: https://api.whatsapp.com/send?phone=5567998342469";
-      }
-      if (q.includes("sabao lava roupas") || q.includes("sabao azul") || (q.includes("azul") && q.includes("sabao"))) {
-        return "Sabão Lava Roupas Azul: R$ 35,00 (5 litros).\nPeça pelo WhatsApp: https://api.whatsapp.com/send?phone=5567998342469";
-      }
-      if (q.includes("sabao de alcool") || q.includes("oleo novo")) {
-        return "Sabão de álcool (Feito com óleo novo) 5 litros: R$ 15,00.\nPeça pelo WhatsApp: https://api.whatsapp.com/send?phone=5567998342469";
-      }
-      if (q.includes("desinfetante") && (q.includes("quanto") || q.includes("preco") || q.includes("valor"))) {
-        return "Desinfetante Perfumado 5 litros: R$ 15,00.\nPeça pelo WhatsApp: https://api.whatsapp.com/send?phone=5567998342469";
-      }
-      // Sempre retorna a TABELA COMPLETA para qualquer pergunta geral de produtos, preços ou catálogo da Superlimpo!
-      return TABELA_COMPLETA_SUPERLIMPO;
-    }
-
-    // --- START MKT LOCAL & LIA: SERVIÇOS E CATÁLOGO ESPECÍFICOS ---
-
-    // A. Criação de Sites
-    if (q.includes("criacao de site") || q.includes("criar site") || q.includes("fazer site") || (q.includes("site") && (q.includes("empresa") || q.includes("quanto") || q.includes("desenvolv") || q.includes("preco") || q.includes("valor")) && !q.includes("superlimpo") && !q.includes("link do site") && !q.includes("qual o site"))) {
-      return "Criação de Sites para empresas em geral com destaque total no meio digital!\n\nPrazo de entrega: apenas 7 dias. Valor: a partir de R$ 500,00.\n\nQuer que eu te mostre como estruturar o site ideal para a sua empresa? Me chame no WhatsApp: https://wa.me//5567993174512";
-    }
-
-    // B. Biosites com atendimento Virtual (IA 24h)
-    if (
-      (q.includes("biosite") && (q.includes("virtual") || q.includes("ia") || q.includes("inteligente") || q.includes("atendimento") || q.includes("167"))) ||
-      (q.includes("atendimento virtual") && !q.includes("superlimpo"))
+      q.includes("ativado")
     ) {
-      return "Criação de Biosites com atendimento 24h por agentes de IA treinados para saber tudo da sua empresa!\n\nValor: R$ 167,00 + R$ 50,00/mês de manutenção do Agente de IA. Modelo de demonstração: https://vicenteiaguebiositegoogleia.vercel.app/\n\nQuer ter um biosite inteligente atendendo seus clientes 24 horas por dia?";
+      return "Nossos produtos da Linha Empresas (galões de 5 litros) custam R$ 30,00 cada:\n• Limpa Chapas (5L): R$ 30,00\n• Brilho Alumínio (5L): R$ 30,00\n• Shampoo Automotivo (5L): R$ 30,00\n• Desengraxante Automotivo (5L): R$ 30,00\n• Ativado (5L): R$ 30,00\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
 
-    // C. Avaliacard (Cartão NFC / QR Code de Avaliação Google)
-    if (q.includes("avaliacard") || q.includes("avaliacao do google") || q.includes("avaliacoes no google") || (q.includes("avaliacao") && q.includes("google"))) {
-      return "AvaliaCard: Cartão NFC e QR Code com link direto na página de avaliação 5 estrelas da sua empresa no Google!\n\nValor: apenas R$ 89,00 + Frete grátis para todo o Brasil. Conheça no site: https://avaliacard.vercel.app/\n\nQuer multiplicar a confiança e as avaliações do seu negócio no Google?";
+    if (q.includes("loja") || q.includes("retirar") || q.includes("fisica") || q.includes("balcao") || q.includes("onde comprar")) {
+      return "Não temos loja física! A Superlimpo trabalha exclusivamente com entregas rápidas em toda a região de Ponta Porã e Pedro Juan Caballero.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
 
-    // D. Gestor Google Meu Negócio
-    if (q.includes("google meu negocio") || q.includes("perfil de empresa no google") || q.includes("perfil do google") || (q.includes("gestor") && q.includes("google"))) {
-      return "Gestor Google Meu Negócio: criação e gestão profissional do perfil da sua empresa no Google para atrair clientes locais em todo o Brasil!\n\nValor: R$ A combinar.\n\nPodemos fazer um diagnóstico gratuito do seu perfil hoje? Fale comigo: https://wa.me//5567993174512";
+    if (q.includes("horario") || q.includes("sabado") || q.includes("quando entrega") || q.includes("horas") || q.includes("funciona")) {
+      return "Nossos horários de entrega são:\n• Segunda a Sexta: entregas até às 16:00 horas.\n• Sábados: entregas às 07:00 horas e às 15:30 horas.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
 
-    // E. Gestor de Tráfego Meta Ads
-    if (q.includes("meta ads") || q.includes("trafego") || q.includes("anuncio no instagram") || q.includes("anuncios no facebook") || q.includes("campanhas")) {
-      return "Gestor de Tráfego Meta Ads: criação e otimização de campanhas de marketing de alta conversão no Instagram e Facebook para empresas de todo o Brasil!\n\nValor: R$ A combinar.\n\nQuer atrair um fluxo constante de clientes prontos para comprar no seu WhatsApp? Chame aqui: https://wa.me//5567993174512";
+    if (q.includes("taxa") || q.includes("frete") || q.includes("custo de entrega") || q.includes("valor da entrega")) {
+      return "A maioria das nossas entregas não tem custo! Dependendo da distância e do pedido, existe uma pequena taxa de entrega.\n\n[Clique aqui para consultar sua entrega no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
 
-    // F. Criação de Agente de IA para WhatsApp
-    if ((q.includes("agente") && q.includes("ia")) || q.includes("ia no whatsapp") || q.includes("ia para whatsapp") || q.includes("robo de whatsapp") || q.includes("bot whatsapp")) {
-      return "Criação de Agente de IA para atendimento no WhatsApp da sua empresa: atendimento 24h com conhecimento total do catálogo e sem filas!\n\nValor: R$ A combinar.\n\nQuer ver uma demonstração prática de como a IA pode vender por você no WhatsApp? Me envie uma mensagem: https://wa.me//5567993174512";
+    if (q.includes("pix") || q.includes("pagar") || q.includes("pagamento") || q.includes("chave")) {
+      return "Nossa chave Pix é o número de telefone celular: 67993174612.\n\n[Clique aqui para confirmar seu pagamento no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
 
-    // --- QUEBRA DE OBJEÇÕES E FAQ GERAIS ---
-
-    // G. Desconto se fechar hoje / PIX
-    if (q.includes("desconto") || q.includes("fechar hoje") || (q.includes("pix") && (q.includes("desconto") || q.includes("a vista")))) {
-      return "No pagamento via PIX já aplicamos 5% de desconto imediato!\n\nSe você quiser fechar um pacote com mais de um item, posso chamar nosso especialista no WhatsApp para liberar uma condição especial para você: https://wa.me//5567993174512\n\nQual serviço você tem interesse em contratar?";
+    if (q.includes("nota fiscal") || q.includes("nf") || q.includes("recibo") || q.includes("fiscal")) {
+      return "Não temos Nota Fiscal, apenas Recibo.\n\n[Clique aqui para falar no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
 
-    // H. Garantia
-    if (q.includes("garantia")) {
-      return "Você tem 15 dias de garantia total! Se tiver qualquer problema, resolvemos sem nenhuma burocracia.\n\nPodemos iniciar o seu projeto com total segurança? Me avise por aqui ou no WhatsApp: https://wa.me//5567993174512";
+    if (q.includes("whatsapp") || q.includes("telefone") || q.includes("contato") || q.includes("falar com atendente") || q.includes("humano")) {
+      return "Nosso WhatsApp oficial é (67) 99834-2469.\n\n[Falar no WhatsApp da Superlimpo](https://api.whatsapp.com/send?phone=5567998342469)";
     }
 
-    // I. Objeção: Achei o valor alto / Vou pensar / Caro
-    if (q.includes("alto") || q.includes("caro") || q.includes("vou pensar") || q.includes("pensar") || q.includes("depois vejo")) {
-      return "Entendo perfeitamente! Mas vale lembrar que todos os nossos produtos são de alto desempenho para alavancagem dos Negócios Locais, o que economiza tempo e dinheiro para você.\n\nQuer que eu te mostre a opção de parcelamento em até 3x sem juros para caber tranquilo no seu orçamento?";
+    if (q.includes("site") || q.includes("pagina") || q.includes("loja virtual")) {
+      return "Acesse nosso site oficial: [Acessar Site Superlimpo](https://superlimpoprodutosdelimpeza.lovable.app/)\n\n[Clique aqui para falar no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
 
-    // J. Formas de pagamento
-    if (q.includes("forma de pagamento") || q.includes("formas de pagamento") || q.includes("pagar") || q.includes("parcela") || q.includes("cartao") || q.includes("pix")) {
-      return "Nossas formas de pagamento são bem flexíveis:\n\n• PIX (com 5% de desconto imediato!)\n• Cartão de Crédito em até 3x sem juros\n• Cartão de Débito\n\nQual opção fica mais confortável para o seu momento?";
+    if (q.includes("instagram") || q.includes("insta") || q.includes("rede social")) {
+      return "Siga nosso perfil oficial no Instagram: [Seguir no Instagram](https://www.instagram.com/superlimpoprodutosdelimpeza?exln=YTQxenNhaXB0ejdn)\n\n[Clique aqui para falar no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
 
-    // K. Horário de funcionamento Start Mkt Local
-    if (q.includes("horario de funcionamento") || q.includes("que horas abre") || q.includes("expediente") || (q.includes("horario") && (q.includes("atendimento") || q.includes("start")))) {
-      return "Nosso horário de funcionamento na Start Mkt Local é de Segunda a Sexta, das 08h às 18h | Sábado, das 08h às 12h.\n\nComo posso ajudar você agora? Se preferir, fale direto no WhatsApp: https://wa.me//5567993174512";
+    if (q.includes("onde fica") || q.includes("localizacao") || q.includes("como chegar") || q.includes("maps")) {
+      return "Trabalhamos com entregas em Ponta Porã e Pedro Juan Caballero. Veja nossa localização: [Abrir no Google Maps](https://maps.app.goo.gl/WP6PrQUTYoC1ZQ5Y9)\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
 
-    // L. Quem somos / Start Mkt Local
-    if (q.includes("start mkt") || q.includes("start marketing") || (q.includes("quem e") && q.includes("start"))) {
-      return "A Start Mkt Local é uma agência de marketing digital sediada em Ponta Porã (MS), atuando em todo o Brasil. Desenvolvemos sites, biosites com IA, cartões NFC, gestão de tráfego e perfis no Google!\n\nWebsite: https://www.startmktlocal.com.br/\nWhatsApp: https://wa.me//5567993174512\n\nQual área a sua empresa deseja impulsionar hoje?";
+    if (q.includes("produtos") || q.includes("catalogo") || q.includes("precos") || q.includes("valores") || q.includes("tabela")) {
+      return "Trabalhamos com galões de 5L direto de fábrica:\n• Kit Dona de Casa (3 galões de 5L): R$ 38,00\n• Água Sanitária 5L: R$ 12,00\n• Desinfetante Perfumado 5L: R$ 15,00\n• Sabão de Álcool 5L: R$ 15,00\n• Sabão Lava Roupas Azul 5L: R$ 35,00\n• Amaciante 5L: R$ 25,00\n• Cloro Ativo 12% 5L: R$ 45,00\n• Alvejante sem cloro 5L: R$ 30,00\n• Lava Louças 5L: R$ 25,00\n• Limpa Pedras 5L: R$ 30,00\n• Limpa Porcelanato 5L: R$ 30,00\n• Linha Empresas 5L: R$ 30,00 cada\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
 
-    // 7. Conectacard / BiositeAi: Preços, Valores, Planos, Orçamento
-    if (
-      q.includes("quanto custa") ||
-      q.includes("preco") ||
-      q.includes("valor") ||
-      q.includes("tabela") ||
-      q.includes("orcamento") ||
-      q.includes("plano") ||
-      q.includes("custo") ||
-      q.includes("promocao") ||
-      q.includes("quanto e") ||
-      q.includes("tabela de preco")
-    ) {
-      return TABELA_PRECOS_BIOSITEAI;
-    }
-
-    // 8. O que é o BiositeAi / Conectacard
-    if (q.includes("biosite") || q.includes("biositeai") || q.includes("mini site") || q.includes("linktree") || q.includes("o que e biosite")) {
-      return `O BiositeAi é um mini site inteligente completo com biosite interativo, atendente virtual LIA com inteligência artificial, cartões NFC e plaquinhas com QR Code!\n\n${TABELA_PRECOS_BIOSITEAI}`;
-    }
-
-    // 9. Serviços oferecidos
-    if (q.includes("servico") || q.includes("quais sao os servicos") || q.includes("o que a empresa oferece") || q.includes("o que voces fazem")) {
-      return "A Start Mkt Local e a Conectacard oferecem soluções completas para alavancar seu negócio:\n\n• Cartões NFC Infinitos e Plaquinhas QR Code\n• Criação de Sites profissionais (a partir de R$ 500,00)\n• Biosite com atendimento Virtual de IA 24h (R$ 167,00)\n• Gestor Google Meu Negócio e Tráfego Meta Ads\n• AvaliaCard para avaliações 5 estrelas no Google (R$ 89,00)\n• Linha Superlimpo de produtos de limpeza direto de fábrica!\n\nQual dessas soluções mais te interessa?";
-    }
-
-    // 10. Como funciona o Cartão NFC
-    if (q.includes("como funciona") || q.includes("nfc") || q.includes("aproximac") || q.includes("funciona o cartao") || q.includes("como usa")) {
-      return "O Cartão NFC Conectacard possui tecnologia por aproximação. Basta encostar o cartão na parte traseira de qualquer celular moderno com NFC (iPhone ou Android) e o seu biosite abre na hora com seus contatos, catálogo e redes sociais, sem precisar instalar nenhum aplicativo!\n\nQuer personalizar um cartão com a sua marca?";
-    }
-
-    // 11. Contatos / WhatsApp
-    if (q.includes("falar com alguem") || q.includes("humano") || q.includes("atendente") || q.includes("whatsapp") || q.includes("contato") || q.includes("telefone")) {
-      return "Com certeza! Nossos canais de atendimento direto:\n\n💳 Start Mkt Local & Conectacard: WhatsApp https://wa.me//5567993174512\n\n🧼 Superlimpo Produtos de Limpeza: WhatsApp https://api.whatsapp.com/send?phone=5567998342469\n\nEm qual desses assuntos posso te direcionar agora?";
-    }
-
-    // 12. Entregas e frete gerais
-    if (q.includes("entrega") || q.includes("frete") || q.includes("onde entrega") || q.includes("fronteira") || q.includes("correios") || q.includes("envio")) {
-      return "• Produtos de limpeza Superlimpo: entregas até às 16h (sábados às 7h e 15:30h) em Ponta Porã e Pedro Juan Caballero.\n• Cartões NFC, Plaquinhas e AvaliaCard: envio para todo o Brasil via Correios com código de rastreamento!\n\nQual o seu CEP ou cidade para verificarmos?";
-    }
-
-    // 13. Endereço e localização
-    if (q.includes("onde") || q.includes("endereco") || q.includes("localizacao") || q.includes("cidade") || q.includes("fica") || q.includes("mapa")) {
-      return "Estamos localizados em Ponta Porã, MS (Start Mkt Local - Rua Luiz Pinto Magalhães, 154 - Santa Isabel). Atendemos presencialmente toda a região de fronteira e o Brasil inteiro de forma digital!\n\nVeja no Google Maps: https://www.google.com/maps/search/?api=1&query=Start+Mkt+Local+-+Rua+Luiz+Pinto+Magalh%C3%A3es,+154+-+Santa+Isabel,+Ponta+Por%C3%A3+-+MS\n\nQuer agendar uma conversa ou consultoria?";
-    }
-
-    // 14. Personalização de cartões
-    if (q.includes("personaliz") || q.includes("logo") || q.includes("arte") || q.includes("minha marca") || q.includes("impressao")) {
-      return "Sim! Nossos cartões e plaquinhas são 100% personalizados com o logotipo, cores e identidade visual da sua marca com acabamento premium de alta durabilidade.\n\nFale conosco pelo WhatsApp para enviar sua logo: https://wa.me//5567993174512\n\nVocê já tem a arte pronta ou precisa de ajuda?";
-    }
-
-    // 15. Regra de Ouro (Guardrails):
-    // Se o cliente perguntar algo sobre produtos de limpeza não identificados:
-    if (isSuperlimpoQuery) {
-      return "Vou passar para o atendimento humano: https://api.whatsapp.com/send?phone=5567998342469";
-    }
-
-    // Para serviços ou dúvidas gerais não cadastradas:
-    return "Para te confirmar esse detalhe específico sem erro, vou te passar o contato direto do nosso especialista: https://wa.me//5567993174512";
+    return defaultFallback;
   };
 
   const handleSend = async (textToSend?: string) => {
@@ -376,7 +249,7 @@ Peça o seu pelo WhatsApp: https://wa.me/5567993174612`;
     const norm = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
     const normKey = norm.replace(/[?!.,;]/g, "");
 
-    // 1. Instant client-side cache check (0ms network latency for repeated questions)
+    // 1. Instant client-side cache check
     if (clientCache.current.has(normKey)) {
       const cachedReply = clientCache.current.get(normKey)!;
       setTimeout(() => {
@@ -389,11 +262,11 @@ Peça o seu pelo WhatsApp: https://wa.me/5567993174612`;
       return;
     }
 
-    // 2. Fast-path: Greetings
+    // 2. Greetings
     const greetings = ["oi", "ola", "bom dia", "boa tarde", "boa noite", "opa", "e ai", "tudo bem", "ola tudo bem"];
     if (greetings.includes(norm)) {
       setTimeout(() => {
-        const greetingReply = `Olá! Eu sou a LIA 👋 Como posso ajudar você hoje? Fique à vontade para perguntar sobre nossos preços do BiositeAi, cartões NFC, serviços de marketing ou a tabela de produtos da Superlimpo!`;
+        const greetingReply = data.atendimento.saudacao || "Olá! Como posso ajudar você hoje?";
         clientCache.current.set(normKey, greetingReply);
         setMessages((prev) => [
           ...prev,
@@ -408,14 +281,11 @@ Peça o seu pelo WhatsApp: https://wa.me/5567993174612`;
       return;
     }
 
-    // 3. Fast-path: Direct smart match from database (Instant and 100% accurate, no waiting, no timeouts)
+    // 3. Verifica correspondência no banco de dados configurado
     const directSmartResponse = findSmartResponse(query);
-    const isHumanFallback =
-      directSmartResponse.startsWith("Vou passar para o atendimento humano") ||
-      directSmartResponse.startsWith("Para te confirmar esse detalhe específico");
+    const hasMatch = directSmartResponse !== defaultFallback;
 
-    // If we have a verified database match (not fallback), answer immediately without making the user wait!
-    if (!isHumanFallback) {
+    if (hasMatch) {
       setTimeout(() => {
         clientCache.current.set(normKey, directSmartResponse);
         setMessages((prev) => [
@@ -427,7 +297,7 @@ Peça o seu pelo WhatsApp: https://wa.me/5567993174612`;
       return;
     }
 
-    // 4. Try calling server AI endpoint with strict 3-second timeout for open-ended queries
+    // 4. Try calling server AI endpoint with knowledge
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 3000);
@@ -439,12 +309,14 @@ Peça o seu pelo WhatsApp: https://wa.me/5567993174612`;
         body: JSON.stringify({
           message: query,
           clientName: data.name,
-          clientKnowledge: `Assistente: LIA.\n${data.atendimento.conhecimento}\n\nPerguntas Frequentes:\n${[
-            ...data.atendimento.empresa,
-            ...data.atendimento.produtos,
-          ]
-            .map((i) => `P: ${i.pergunta}\nR: ${i.resposta}`)
-            .join("\n")}`,
+          clientKnowledge: data.atendimento.conhecimento
+            ? `Assistente: LIA.\n${data.atendimento.conhecimento}\n\nPerguntas Frequentes:\n${[
+                ...data.atendimento.empresa,
+                ...data.atendimento.produtos,
+              ]
+                .map((i) => `P: ${i.pergunta}\nR: ${i.resposta}`)
+                .join("\n")}`
+            : "",
           history: messages,
         }),
       });
@@ -464,10 +336,10 @@ Peça o seu pelo WhatsApp: https://wa.me/5567993174612`;
         }
       }
     } catch {
-      // Abort or network failure -> seamlessly falls through to local matching
+      // Abort or network failure -> falls through
     }
 
-    // 5. Final fallback to local intelligent matching
+    // 5. Final fallback
     setTimeout(() => {
       const responseText = directSmartResponse;
       clientCache.current.set(normKey, responseText);
@@ -484,7 +356,9 @@ Peça o seu pelo WhatsApp: https://wa.me/5567993174612`;
       {
         id: "init-lia-" + Date.now(),
         role: "assistant",
-        text: "Olá! Eu sou a LIA, assistente virtual inteligente da Conectacard. Estou aqui para tirar suas dúvidas, apresentar nossos serviços e ajudar você a encontrar a melhor solução. Pode perguntar!",
+        text:
+          data.atendimento.saudacao ||
+          "Olá! Eu sou a LIA, atendente virtual inteligente da Superlimpo. Estou aqui para tirar suas dúvidas sobre nossos produtos, preços e entregas. Como posso ajudar você hoje?",
       },
     ]);
   };
@@ -523,28 +397,30 @@ Peça o seu pelo WhatsApp: https://wa.me/5567993174612`;
 
         {/* Descrição oficial solicitada */}
         <p className="text-xs sm:text-sm text-[#334155] leading-relaxed mt-3.5 font-normal">
-          Estou aqui para tirar suas dúvidas, apresentar nossos serviços e ajudar você a encontrar a melhor solução. Pode perguntar!
+          Estou aqui para tirar suas dúvidas sobre produtos, valores e funcionamento da Superlimpo. Pode perguntar!
         </p>
 
         {/* Caixa: Sugestões de perguntas */}
-        <div className="mt-3.5 bg-[#f1f5f9] border border-[#e2e8f0] rounded-xl p-3">
-          <p className="text-[11px] font-semibold text-[#64748b] mb-2">
-            Sugestões de perguntas
-          </p>
-          <div className="flex flex-wrap gap-1.5">
-            {sugestoes.map((sugestao, idx) => (
-              <button
-                key={idx}
-                type="button"
-                disabled={isTyping}
-                onClick={() => handleSend(sugestao)}
-                className="text-xs font-medium px-3 py-1.5 rounded-full bg-white hover:bg-[#1A56DB] hover:text-white text-[#334155] border border-[#cbd5e1] hover:border-[#1A56DB] transition-all shadow-xs active:scale-95 disabled:opacity-50"
-              >
-                {sugestao}
-              </button>
-            ))}
+        {sugestoes.length > 0 && (
+          <div className="mt-3.5 bg-[#f1f5f9] border border-[#e2e8f0] rounded-xl p-3">
+            <p className="text-[11px] font-semibold text-[#64748b] mb-2">
+              Sugestões de perguntas
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {sugestoes.map((sugestao, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  disabled={isTyping}
+                  onClick={() => handleSend(sugestao)}
+                  className="text-xs font-medium px-3 py-1.5 rounded-full bg-white hover:bg-[#1A56DB] hover:text-white text-[#334155] border border-[#cbd5e1] hover:border-[#1A56DB] transition-all shadow-xs active:scale-95 disabled:opacity-50"
+                >
+                  {sugestao}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* 2. Área de Mensagens da Conversa */}

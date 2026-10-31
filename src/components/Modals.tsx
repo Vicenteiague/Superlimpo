@@ -72,7 +72,16 @@ interface InfoModalProps {
 }
 
 export function InfoModal({ isOpen, onClose, title, description, isService }: InfoModalProps) {
+  const [copied, setCopied] = useState(false);
   if (!isOpen) return null;
+
+  const isPix = title.toLowerCase().includes("pix") || description.includes("67993174612");
+
+  const handleCopyPix = () => {
+    navigator.clipboard.writeText("67993174612").catch(() => {});
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
 
   return (
     <div
@@ -94,9 +103,43 @@ export function InfoModal({ isOpen, onClose, title, description, isService }: In
         </button>
 
         <h3 className="text-xl font-bold mb-3 text-[#f8fafc] font-serif">{title}</h3>
-        <p className="text-sm text-[#94a3b8] leading-relaxed mb-6">{description}</p>
+        <p className="text-sm text-[#94a3b8] leading-relaxed mb-4 whitespace-pre-line">{description}</p>
+
+        {isPix && (
+          <div className="mb-5 p-3 rounded-xl bg-[#0d1627] border border-[#1e3056] flex items-center justify-between gap-3 text-left">
+            <div>
+              <span className="block text-[11px] uppercase tracking-wider text-[#93c5fd] font-semibold">Chave Pix Celular</span>
+              <span className="text-lg font-mono font-bold text-white tracking-wide">67993174612</span>
+            </div>
+            <button
+              type="button"
+              onClick={handleCopyPix}
+              className={`py-2 px-3 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm ${
+                copied
+                  ? "bg-emerald-600 text-white"
+                  : "bg-[#1A56DB] text-white hover:bg-blue-600"
+              }`}
+            >
+              {copied ? "Copiado!" : "Copiar"}
+            </button>
+          </div>
+        )}
 
         <div className="flex flex-col gap-2.5">
+          {isPix && (
+            <a
+              href={`https://api.whatsapp.com/send?phone=5567998342469&text=${encodeURIComponent(
+                "Olá Superlimpo! Segue o comprovante do pagamento via Pix referente ao meu pedido."
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full py-2.5 px-4 rounded-md bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-semibold text-sm hover:brightness-110 shadow-md inline-flex items-center justify-center gap-2 transition-all"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span>Enviar Comprovante no WhatsApp</span>
+            </a>
+          )}
+
           {isService && (
             <a
               href={`https://wa.me/5567993174612?text=${encodeURIComponent(
@@ -115,7 +158,7 @@ export function InfoModal({ isOpen, onClose, title, description, isService }: In
             onClick={onClose}
             className="w-full py-2.5 px-4 rounded-md bg-[#162442] hover:bg-[#1d3158] border border-[#23375e] text-[#f8fafc] text-sm font-medium transition-colors"
           >
-            Voltar
+            Fechar
           </button>
         </div>
       </div>
