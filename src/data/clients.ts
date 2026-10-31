@@ -221,6 +221,11 @@ export const allClients: Record<string, BiositeData> = {
       src: "/assets/logo-superlimpo.png",
       alt: "Logo Superlimpo"
     },
+    video: {
+      title: "Superlimpo Produtos de Limpeza",
+      poster: "https://img.youtube.com/vi/NA0t9I4CSls/hqdefault.jpg",
+      url: "https://youtube.com/shorts/NA0t9I4CSls?is=2Lm50yj3M3qJsIL3"
+    },
     produtos: {
       title: "Promoção Kit Dona de Casa (3 Galões por R$ 38,00)",
       image: "/assets/kit-limpeza-superlimpo.webp",

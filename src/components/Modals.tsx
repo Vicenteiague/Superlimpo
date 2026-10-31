@@ -42,6 +42,19 @@ export function VideoModal({ isOpen, onClose, title, videoUrl }: VideoModalProps
         className="media-dialog-content relative max-w-[420px] aspect-[9/16] max-h-[85vh] bg-black p-0"
         onClick={(e) => e.stopPropagation()}
       >
+        <div className="absolute top-3 left-3 z-10 flex items-center gap-2">
+          <a
+            href={videoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-black/75 hover:bg-black text-white border border-white/20 transition-colors shadow-md"
+            title="Abrir no YouTube"
+          >
+            <ExternalLink className="w-3.5 h-3.5 text-[#38bdf8]" />
+            <span>YouTube</span>
+          </a>
+        </div>
+
         <button
           onClick={onClose}
           className="media-close"

@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Play } from "lucide-react";
 
 interface VideoCardProps {
@@ -8,6 +9,12 @@ interface VideoCardProps {
 }
 
 export function VideoCard({ title, poster, name, onPlay }: VideoCardProps) {
+  const [imgSrc, setImgSrc] = useState(poster);
+
+  useEffect(() => {
+    setImgSrc(poster);
+  }, [poster]);
+
   return (
     <button
       type="button"
@@ -15,7 +22,18 @@ export function VideoCard({ title, poster, name, onPlay }: VideoCardProps) {
       onClick={onPlay}
       aria-label={`Reproduzir vídeo: ${title}`}
     >
-      <img src={poster} alt={`Vídeo de ${name}`} loading="lazy" />
+      <img
+        src={imgSrc}
+        alt={`Vídeo de ${name}`}
+        loading="lazy"
+        onError={() => {
+          if (imgSrc.includes("maxresdefault.jpg")) {
+            setImgSrc(imgSrc.replace("maxresdefault.jpg", "hqdefault.jpg"));
+          } else {
+            setImgSrc("/assets/video-refined-BgPRCMsH.jpg");
+          }
+        }}
+      />
       <span className="video-shade" />
 
       {/* Play button with hover animation */}

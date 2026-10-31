@@ -88,9 +88,9 @@ export const conectacardData: BiositeData = {
     alt: "Logo ConectaCard"
   },
   video: {
-    title: "Conectacard",
-    poster: "/assets/video-refined-BgPRCMsH.jpg",
-    url: "https://youtube.com/shorts/IJHT-lXmDaU"
+    title: "Superlimpo Produtos de Limpeza",
+    poster: "https://img.youtube.com/vi/NA0t9I4CSls/hqdefault.jpg",
+    url: "https://youtube.com/shorts/NA0t9I4CSls?is=2Lm50yj3M3qJsIL3"
   },
   produtos: {
     title: "Nossos Produtos",

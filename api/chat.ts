@@ -35,12 +35,46 @@ export default async function handler(req: any, res: any) {
     return;
   }
 
+  // Health check endpoint for testing Vercel serverless function status
+  if (req.method === "GET") {
+    const hasKey = Boolean(process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY);
+    res.status(200).json({
+      status: "online",
+      agent: "LIA - Superlimpo Atendente Virtual",
+      platform: "Vercel Serverless Function",
+      aiConfigured: hasKey,
+      timestamp: new Date().toISOString(),
+    });
+    return;
+  }
+
   if (req.method !== "POST") {
     res.status(405).json({ error: "Method not allowed" });
     return;
   }
 
-  const { message, history, clientKnowledge, clientName } = req.body || {};
+  // Defensive body parsing for Vercel serverless environment
+  let body = req.body;
+  if (typeof body === "string") {
+    try {
+      body = JSON.parse(body);
+    } catch {
+      body = {};
+    }
+  } else if (!body && typeof req.on === "function") {
+    try {
+      const chunks: any[] = [];
+      for await (const chunk of req) {
+        chunks.push(chunk);
+      }
+      const raw = Buffer.concat(chunks).toString("utf-8");
+      body = JSON.parse(raw);
+    } catch {
+      body = {};
+    }
+  }
+
+  const { message, history, clientKnowledge, clientName } = body || {};
 
   if (!message || typeof message !== "string") {
     res.status(400).json({ error: "Mensagem obrigatória" });
@@ -172,7 +206,7 @@ Linha empresas:
         parts: [{ text: message }],
       });
 
-      const candidateModels = ["gemini-2.5-flash", "gemini-2.5-flash-lite"];
+      const candidateModels = ["gemini-2.5-flash", "gemini-flash-latest", "gemini-3.8-flash", "gemini-2.5-flash-lite"];
       let reply = "";
 
       for (const model of candidateModels) {
