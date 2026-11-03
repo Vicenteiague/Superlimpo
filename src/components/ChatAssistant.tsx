@@ -438,24 +438,40 @@ Linha empresas:
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-      const res = await fetch("/api/chat", {
+      const payload = {
+        message: query,
+        clientName: data.name,
+        clientKnowledge: data.atendimento.conhecimento
+          ? `Assistente: LIA.\n${data.atendimento.conhecimento}\n\nPerguntas Frequentes:\n${[
+              ...data.atendimento.empresa,
+              ...data.atendimento.produtos,
+            ]
+              .map((i) => `P: ${i.pergunta}\nR: ${i.resposta}`)
+              .join("\n")}`
+          : "",
+        history: newMessages,
+      };
+
+      let res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         signal: controller.signal,
-        body: JSON.stringify({
-          message: query,
-          clientName: data.name,
-          clientKnowledge: data.atendimento.conhecimento
-            ? `Assistente: LIA.\n${data.atendimento.conhecimento}\n\nPerguntas Frequentes:\n${[
-                ...data.atendimento.empresa,
-                ...data.atendimento.produtos,
-              ]
-                .map((i) => `P: ${i.pergunta}\nR: ${i.resposta}`)
-                .join("\n")}`
-            : "",
-          history: newMessages,
-        }),
+        body: JSON.stringify(payload),
       });
+
+      // Fallback para Netlify caso o redirecionamento /api/chat retorne 404
+      if (!res.ok && res.status === 404) {
+        try {
+          res = await fetch("/.netlify/functions/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            signal: controller.signal,
+            body: JSON.stringify(payload),
+          });
+        } catch {
+          // mantém res anterior
+        }
+      }
 
       clearTimeout(timeoutId);
 
