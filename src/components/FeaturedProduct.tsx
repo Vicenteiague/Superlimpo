@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 
 interface FeaturedProductProps {
@@ -7,6 +8,8 @@ interface FeaturedProductProps {
 }
 
 export function FeaturedProduct({ title, image, url }: FeaturedProductProps) {
+  const [imgSrc, setImgSrc] = useState(image);
+
   return (
     <a
       href={url}
@@ -17,9 +20,10 @@ export function FeaturedProduct({ title, image, url }: FeaturedProductProps) {
     >
       <div className="produtos-imagem">
         <img
-          src={image}
+          src={imgSrc}
           alt={title}
           loading="lazy"
+          onError={() => setImgSrc("/assets/produtos-superlimpo-2KK8JWDt.png")}
           className="group-hover:scale-105 transition-transform duration-350"
         />
       </div>

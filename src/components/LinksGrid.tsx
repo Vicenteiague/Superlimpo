@@ -62,6 +62,9 @@ export function LinksGrid({ title, links, onOpenInfo }: LinksGridProps) {
                   src={link.image}
                   alt=""
                   loading="lazy"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = "/assets/website-refined-BhyhUZGx.jpg";
+                  }}
                   className="group-hover:scale-105 transition-transform duration-350"
                 />
                 {isPix && (

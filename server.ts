@@ -202,7 +202,7 @@ Linha empresas:
     }
 
     if (!reply) {
-      reply = "Vou passar para o atendimento humano: [Clique aqui para falar no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+      reply = getSmartFallback(message);
     }
 
     if (reply) {
@@ -216,12 +216,89 @@ Linha empresas:
     res.json({ reply, cached: false });
   } catch (error: any) {
     console.error("Gemini API Error:", error?.message || error);
+    const reply = getSmartFallback(req.body?.message || "");
     res.json({
-      reply: "Olá! Como posso ajudar você hoje?",
+      reply,
       isFallback: true,
     });
   }
 });
+
+function getSmartFallback(msg: string): string {
+  const q = msg
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .replace(/\bvcs\b/g, "voces")
+    .replace(/\bvc\b/g, "voce")
+    .replace(/\bqto\b/g, "quanto")
+    .replace(/\bpq\b/g, "porque")
+    .replace(/\btbm\b/g, "tambem");
+
+  if (
+    q.includes("essencia") ||
+    q.includes("fragrancia") ||
+    q.includes("aroma") ||
+    q.includes("cheiro") ||
+    q.includes("lavanda") ||
+    q.includes("jasmin") ||
+    q.includes("citronela") ||
+    q.includes("kayak") ||
+    q.includes("frutas vermelhas") ||
+    q.includes("eucalipto")
+  ) {
+    return "Temos 6 essências maravilhosas para o nosso Desinfetante Perfumado (galão de 5 litros por R$ 15,00):\n• 🌸 Lavanda\n• 🌺 Jasmin\n• 🌿 Citronela\n• 🌊 Kayak\n• 🍓 Frutas Vermelhas\n• 🍃 Eucalipto\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+  }
+
+  if (q.includes("piso") || q.includes("porcelanato") || q.includes("ceramica")) {
+    return "Temos sim! O nosso Limpa Porcelanato & Cerâmica (5 litros) é o produto ideal para pisos, cerâmicas e porcelanatos. Custa apenas R$ 30,00 e deixa o chão com brilho incrível!\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+  }
+
+  if (q.includes("vanish") || q.includes("sem cloro") || q.includes("tira mancha") || q.includes("alvejante")) {
+    return "Temos sim! O nosso Alvejante sem Cloro (Tipo Vanish) galão de 5 litros custa R$ 30,00. Possui oxigênio ativo que remove manchas difíceis sem agredir os tecidos!\n\n[Clique aqui para pedir no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+  }
+
+  if (q.includes("entrega") || q.includes("entregam") || q.includes("delivery")) {
+    return "Sim, com certeza! A Superlimpo trabalha exclusivamente com entregas rápidas em toda Ponta Porã e Pedro Juan Caballero!\n\nHorários de entrega:\n• Segunda a Sexta: até às 16:00h\n• Sábados: às 07:00h e às 15:30h\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+  }
+
+  if (q.includes("cobra") || q.includes("taxa") || q.includes("frete")) {
+    return "A grande maioria das nossas entregas não tem custo algum (é grátis!). Dependendo da distância e do pedido, cobramos apenas uma pequena taxa de entrega.\n\n[Clique aqui para consultar no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+  }
+
+  if (q.includes("tabela") || q.includes("preco") || q.includes("produto") || q.includes("catalogo") || q.includes("valor")) {
+    return `Tabela de produtos Superlimpo
+
+Linha dona de casa:
+• Kit de Produto com (Água sanitária 5L, Desinfetante 5L e Sabão de álcool 5L) todos os 3 por R$ 38,00
+• Água sanitária 5 litros R$ 12,00
+• Cloro Ativo 12% 5 litros R$ 45,00
+• Desinfetante Perfumado 5 litros R$ 15,00 (Essências: Lavanda, Jasmin, Citronela, Kayak, Frutas Vermelhas e Eucalipto)
+• Sabão de álcool (Feito com óleo novo) 5 litros R$ 15,00
+• Sabão Lava Roupas Azul R$ 35,00
+• Amaciante de roupa 5 litros R$ 25,00
+• Alvejante sem cloro 5 litros (Tipo Vanish) R$ 30,00
+• Lava louças 5 litros R$ 25,00
+• Limpa Pedras 5 litros R$ 30,00
+• Limpa Porcelanato & Cerâmica 5 litros (Limpa Pisos) R$ 30,00
+
+Linha empresas:
+• Limpa Chapas 5 litros R$ 30,00
+• Brilho alumínio 5 litros R$ 30,00
+• Shampoo Automotivo 5 litros R$ 30,00
+• Desengraxante Automotivo 5 litros R$ 30,00
+• Ativado 5L R$ 30,00
+
+[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)`;
+  }
+
+  if (q.includes("pix") || q.includes("pagar") || q.includes("chave")) {
+    return "Nossa chave Pix é o número de celular: 67993174612.\n\n[Clique aqui para confirmar o comprovante no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+  }
+
+  return "Vou passar para o atendimento humano: [Clique aqui para falar no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+}
 
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {

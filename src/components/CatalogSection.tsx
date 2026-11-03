@@ -25,6 +25,9 @@ export function CatalogSection({ title, items, onSelectProduct }: CatalogSection
                 src={item.image}
                 alt={item.title}
                 loading="lazy"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src = "/assets/produtos-superlimpo-2KK8JWDt.png";
+                }}
                 className="group-hover:scale-105 transition-transform duration-350"
               />
             </div>
