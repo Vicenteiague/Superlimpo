@@ -114,8 +114,26 @@ export function ChatAssistant({ data }: ChatAssistantProps) {
   const defaultFallback =
     "Vou passar para o atendimento humano: [Clique aqui para falar no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
 
-  const findSmartResponse = (query: string): string => {
-    const q = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+  // Normalização de gírias e abreviações populares
+  const normalizeQuery = (text: string): string => {
+    let s = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+    // vcs igual a voces / vc igual a voce
+    s = s.replace(/\bvcs\b/g, "voces");
+    s = s.replace(/\bvc\b/g, "voce");
+    s = s.replace(/\bqto\b/g, "quanto");
+    s = s.replace(/\bpq\b/g, "porque");
+    s = s.replace(/\btbm\b/g, "tambem");
+    return s;
+  };
+
+  const findSmartResponse = (query: string, currentHistory?: ChatMessage[]): string => {
+    const q = normalizeQuery(query);
+
+    // Contexto das últimas mensagens (para entender "e esse?", "quanto é?", "tem cheiro?")
+    const recentContext = (currentHistory || messages)
+      .slice(-4)
+      .map((m) => m.text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
+      .join(" ");
 
     // 1. Busca exata nas perguntas e respostas cadastradas
     const allFaqs = [
@@ -124,19 +142,93 @@ export function ChatAssistant({ data }: ChatAssistantProps) {
     ];
 
     for (const faq of allFaqs) {
-      const qNorm = faq.pergunta.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+      const qNorm = normalizeQuery(faq.pergunta);
       if (q.includes(qNorm) || qNorm.includes(q)) {
         return faq.resposta;
       }
     }
 
-    // 2. Busca prioritária por Tabela de Preços / Catálogo Completo
+    // 2. Essências do Desinfetante Perfumado (Lavanda, Jasmin, Citronela, Kayak, Frutas Vermelhas, Eucalipto)
+    const isFragranceQuery =
+      q.includes("essencia") ||
+      q.includes("essencias") ||
+      q.includes("fragrancia") ||
+      q.includes("fragrancias") ||
+      q.includes("aroma") ||
+      q.includes("aromas") ||
+      q.includes("cheiro") ||
+      q.includes("cheiros") ||
+      q.includes("lavanda") ||
+      q.includes("jasmin") ||
+      q.includes("citronela") ||
+      q.includes("kayak") ||
+      q.includes("frutas vermelhas") ||
+      q.includes("eucalipto");
+
+    if (isFragranceQuery || (q.includes("desinfetante") && (q.includes("qual") || q.includes("quais") || q.includes("opcao") || q.includes("opcoes")))) {
+      return "Temos 6 essências maravilhosas para o nosso Desinfetante Perfumado (galão de 5 litros por R$ 15,00):\n• 🌸 Lavanda\n• 🌺 Jasmin\n• 🌿 Citronela\n• 🌊 Kayak\n• 🍓 Frutas Vermelhas\n• 🍃 Eucalipto\n\nTodas têm alto rendimento e fixação duradoura!\n\n[Clique aqui para pedir sua essência favorita no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+    }
+
+    // 3. Limpa Porcelanato e Cerâmica é o mesmo que Limpa Pisos
+    if (
+      q.includes("limpa piso") ||
+      q.includes("limpa pisos") ||
+      q.includes("limpador de piso") ||
+      q.includes("produto para piso") ||
+      q.includes("porcelanato") ||
+      q.includes("ceramica") ||
+      q.includes("limpar piso") ||
+      q.includes("limpa ceramica") ||
+      q.includes("limpa porcelanato")
+    ) {
+      return "Temos sim! O nosso Limpa Porcelanato & Cerâmica (5 litros) é o produto ideal para pisos, cerâmicas e porcelanatos. Custa apenas R$ 30,00 e deixa o piso impecável com brilho natural sem agredir!\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+    }
+
+    // 4. Alvejante sem Cloro igual a Vanish
+    if (
+      q.includes("vanish") ||
+      q.includes("tipo vanish") ||
+      q.includes("alvejante sem cloro") ||
+      q.includes("sem cloro") ||
+      q.includes("tira manchas") ||
+      q.includes("tira mancha")
+    ) {
+      return "Temos sim! O nosso Alvejante sem Cloro (Tipo Vanish) galão de 5 litros custa R$ 30,00. Possui oxigênio ativo potente que remove manchas difíceis de roupas brancas e coloridas sem desbotar o tecido!\n\n[Clique aqui para pedir no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+    }
+
+    // 5. vocês entregam??? IGUAL A vcs fazem entrega??
+    if (
+      q.includes("voces entregam") ||
+      q.includes("fazem entrega") ||
+      q.includes("faz entrega") ||
+      q.includes("faze entrega") ||
+      q.includes("entrega em casa") ||
+      q.includes("tem entrega") ||
+      q.includes("trabalha com entrega") ||
+      q.includes("mandam na minha casa")
+    ) {
+      return "Sim, com certeza! A Superlimpo é o maior delivery de produtos de limpeza da fronteira e trabalhamos exclusivamente com entregas em toda Ponta Porã e Pedro Juan Caballero!\n\nNossos horários de entrega:\n• Segunda a Sexta: entregas até às 16:00 horas\n• Sábados: entregas às 07:00 horas e às 15:30 horas\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+    }
+
+    // 6. Cobra Quanto? Igual a Qual o valor da entrega??
+    if (
+      q.includes("cobra quanto") ||
+      q.includes("quanto cobra") ||
+      q.includes("qual o valor da entrega") ||
+      q.includes("quanto e a entrega") ||
+      q.includes("quanto fica a entrega") ||
+      q.includes("tem taxa") ||
+      q.includes("cobra taxa") ||
+      q.includes("valor do frete") ||
+      q.includes("quanto e o frete") ||
+      q.includes("taxa de entrega")
+    ) {
+      return "A grande maioria das nossas entregas não tem custo algum (é grátis!). Dependendo apenas da distância e do tamanho do pedido, cobramos uma pequena taxa de entrega.\n\n[Clique aqui para consultar sua entrega no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+    }
+
+    // 7. Busca prioritária por Tabela de Preços / Catálogo Completo
     const isTabelaQuery =
       q.includes("tabela") ||
-      q.includes("preco") ||
-      q.includes("precos") ||
-      q.includes("valor") ||
-      q.includes("valores") ||
       q.includes("catalogo") ||
       q === "produtos" ||
       q === "quais produtos" ||
@@ -144,7 +236,8 @@ export function ChatAssistant({ data }: ChatAssistantProps) {
       q.includes("quanto custa os produtos") ||
       q.includes("linha dona de casa") ||
       q.includes("linha empresas") ||
-      q.includes("linha empresa");
+      q.includes("linha empresa") ||
+      (q.includes("todos") && q.includes("preco"));
 
     if (isTabelaQuery) {
       return `Tabela de produtos Superlimpo
@@ -153,14 +246,14 @@ Linha dona de casa:
 • Kit de Produto com (Água sanitária 5L, Desinfetante 5L e Sabão de álcool 5L) todos os 3 por R$ 38,00
 • Água sanitária 5 litros R$ 12,00
 • Cloro Ativo 12% 5 litros R$ 45,00
-• Desinfetante Perfumado 5 litros R$ 15,00
+• Desinfetante Perfumado 5 litros R$ 15,00 (Essências: Lavanda, Jasmin, Citronela, Kayak, Frutas Vermelhas e Eucalipto)
 • Sabão de álcool (Feito com óleo novo) 5 litros R$ 15,00
 • Sabão Lava Roupas Azul R$ 35,00
 • Amaciante de roupa 5 litros R$ 25,00
 • Alvejante sem cloro 5 litros (Tipo Vanish) R$ 30,00
 • Lava louças 5 litros R$ 25,00
 • Limpa Pedras 5 litros R$ 30,00
-• Limpa Porcelanato & Cerâmica 5 litros R$ 30,00
+• Limpa Porcelanato & Cerâmica 5 litros (Limpa Pisos) R$ 30,00
 
 Linha empresas:
 • Limpa Chapas 5 litros R$ 30,00
@@ -172,7 +265,54 @@ Linha empresas:
 [Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)`;
     }
 
-    // 3. Busca específica por produto individual ou kit
+    // 8. Resoluções por contexto de mensagens anteriores ("e esse?", "quanto é?", "tem dele?")
+    const isFollowUp =
+      q.includes("esse") ||
+      q.includes("este") ||
+      q.includes("ele") ||
+      q.includes("deles") ||
+      q.includes("dele") ||
+      q === "quanto e?" ||
+      q === "quanto e" ||
+      q === "quanto custa?" ||
+      q === "quanto custa" ||
+      q === "qual o preco?" ||
+      q === "qual o preco" ||
+      q === "e esse?" ||
+      q === "e esse" ||
+      q === "e o preco?";
+
+    if (isFollowUp && recentContext) {
+      if (recentContext.includes("desinfetante") || recentContext.includes("essencia") || recentContext.includes("aroma")) {
+        return "O nosso Desinfetante Perfumado (5 litros) custa R$ 15,00! Temos nas essências: Lavanda, Jasmin, Citronela, Kayak, Frutas Vermelhas e Eucalipto.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+      }
+      if (recentContext.includes("porcelanato") || recentContext.includes("piso") || recentContext.includes("ceramica")) {
+        return "O Limpa Porcelanato & Cerâmica 5L (nosso limpador de pisos) custa R$ 30,00!\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+      }
+      if (recentContext.includes("vanish") || recentContext.includes("alvejante")) {
+        return "O Alvejante sem Cloro (Tipo Vanish) 5 litros custa R$ 30,00!\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+      }
+      if (recentContext.includes("kit")) {
+        return "O Kit Dona de Casa (Água Sanitária 5L, Desinfetante 5L e Sabão de Álcool 5L) sai todos os 3 galões por apenas R$ 38,00!\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+      }
+      if (recentContext.includes("cloro")) {
+        return "O Cloro Ativo 12% (5 litros) custa R$ 45,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+      }
+      if (recentContext.includes("agua sanitaria")) {
+        return "A Água Sanitária (5 litros) custa R$ 12,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+      }
+      if (recentContext.includes("amaciante")) {
+        return "O Amaciante de Roupa (5 litros) custa R$ 25,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+      }
+      if (recentContext.includes("sabao azul") || recentContext.includes("lava roupas")) {
+        return "O Sabão Lava Roupas Azul (5 litros) custa R$ 35,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+      }
+      if (recentContext.includes("sabao de alcool") || recentContext.includes("oleo novo")) {
+        return "O Sabão de Álcool (óleo novo) 5 litros custa R$ 15,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+      }
+    }
+
+    // 9. Busca específica por produto individual
     if (q.includes("kit") || q.includes("dona de casa") || (q.includes("3") && q.includes("38"))) {
       return "O Kit de Produto (Água Sanitária 5L, Desinfetante 5L e Sabão de Álcool 5L) sai todos os 3 galões por apenas R$ 38,00!\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
@@ -186,7 +326,7 @@ Linha empresas:
     }
 
     if (q.includes("desinfetante") || q.includes("perfumado")) {
-      return "Desinfetante Perfumado (5 litros) custa R$ 15,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+      return "Desinfetante Perfumado (5 litros) custa R$ 15,00 e temos nas essências: Lavanda, Jasmin, Citronela, Kayak, Frutas Vermelhas e Eucalipto!\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
 
     if (q.includes("alcool") || q.includes("oleo novo") || (q.includes("sabao") && q.includes("alcool"))) {
@@ -201,20 +341,12 @@ Linha empresas:
       return "Amaciante de roupa (5 litros) custa R$ 25,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
 
-    if (q.includes("alvejante") || q.includes("vanish") || q.includes("sem cloro")) {
-      return "Alvejante sem cloro - Tipo Vanish (5 litros) custa R$ 30,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
-    }
-
     if (q.includes("louca") || q.includes("loucas") || q.includes("detergente")) {
       return "Lava louças (5 litros) custa R$ 25,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
 
     if (q.includes("pedra") || q.includes("pedras") || q.includes("limpa pedra")) {
       return "Limpa Pedras (5 litros) custa R$ 30,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
-    }
-
-    if (q.includes("porcelanato") || q.includes("ceramica") || q.includes("piso")) {
-      return "Limpa Porcelanato & Cerâmica (5 litros) custa R$ 30,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
 
     if (
@@ -232,15 +364,11 @@ Linha empresas:
     }
 
     if (q.includes("loja") || q.includes("retirar") || q.includes("fisica") || q.includes("balcao") || q.includes("onde comprar")) {
-      return "Não temos loja física! A Superlimpo trabalha exclusivamente com entregas rápidas em toda a região de Ponta Porã e Pedro Juan Caballero.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
+      return "Não temos loja física! A Superlimpo trabalha exclusivamente com entregas rápidas na sua porta em toda a região de Ponta Porã e Pedro Juan Caballero.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
 
     if (q.includes("horario") || q.includes("sabado") || q.includes("quando entrega") || q.includes("horas") || q.includes("funciona")) {
       return "Nossos horários de entrega são:\n• Segunda a Sexta: entregas até às 16:00 horas.\n• Sábados: entregas às 07:00 horas e às 15:30 horas.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
-    }
-
-    if (q.includes("taxa") || q.includes("frete") || q.includes("custo de entrega") || q.includes("valor da entrega")) {
-      return "A maioria das nossas entregas não tem custo! Dependendo da distância e do pedido, existe uma pequena taxa de entrega.\n\n[Clique aqui para consultar sua entrega no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)";
     }
 
     if (q.includes("pix") || q.includes("pagar") || q.includes("pagamento") || q.includes("chave")) {
@@ -280,32 +408,18 @@ Linha empresas:
       text: query,
     };
 
-    setMessages((prev) => [...prev, userMsg]);
+    const newMessages = [...messages, userMsg];
+    setMessages(newMessages);
     if (!textToSend) setInputVal("");
     setIsTyping(true);
 
-    const norm = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
-    const normKey = norm.replace(/[?!.,;]/g, "");
+    const norm = normalizeQuery(query);
 
-    // 1. Instant client-side cache check
-    if (clientCache.current.has(normKey)) {
-      const cachedReply = clientCache.current.get(normKey)!;
-      setTimeout(() => {
-        setMessages((prev) => [
-          ...prev,
-          { id: "a-" + Date.now(), role: "assistant", text: cachedReply },
-        ]);
-        setIsTyping(false);
-      }, 180);
-      return;
-    }
-
-    // 2. Greetings
-    const greetings = ["oi", "ola", "bom dia", "boa tarde", "boa noite", "opa", "e ai", "tudo bem", "ola tudo bem"];
+    // 1. Saudações comuns
+    const greetings = ["oi", "ola", "bom dia", "boa tarde", "boa noite", "opa", "e ai", "tudo bem", "ola tudo bem", "ola lia", "oi lia"];
     if (greetings.includes(norm)) {
       setTimeout(() => {
         const greetingReply = data.atendimento.saudacao || "Olá! Como posso ajudar você hoje?";
-        clientCache.current.set(normKey, greetingReply);
         setMessages((prev) => [
           ...prev,
           {
@@ -319,23 +433,7 @@ Linha empresas:
       return;
     }
 
-    // 3. Verifica correspondência no banco de dados configurado
-    const directSmartResponse = findSmartResponse(query);
-    const hasMatch = directSmartResponse !== defaultFallback;
-
-    if (hasMatch) {
-      setTimeout(() => {
-        clientCache.current.set(normKey, directSmartResponse);
-        setMessages((prev) => [
-          ...prev,
-          { id: "a-" + Date.now(), role: "assistant", text: directSmartResponse },
-        ]);
-        setIsTyping(false);
-      }, 260);
-      return;
-    }
-
-    // 4. Try calling server AI endpoint with knowledge
+    // 2. Tenta chamar o endpoint de IA com contexto completo do histórico
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 15000);
@@ -355,7 +453,7 @@ Linha empresas:
                 .map((i) => `P: ${i.pergunta}\nR: ${i.resposta}`)
                 .join("\n")}`
             : "",
-          history: messages,
+          history: newMessages,
         }),
       });
 
@@ -364,7 +462,6 @@ Linha empresas:
       if (res.ok) {
         const json = await res.json();
         if (json.reply && !json.isFallback) {
-          clientCache.current.set(normKey, json.reply);
           setMessages((prev) => [
             ...prev,
             { id: "a-" + Date.now(), role: "assistant", text: json.reply },
@@ -374,16 +471,15 @@ Linha empresas:
         }
       }
     } catch {
-      // Abort or network failure -> falls through
+      // Falha de rede ou timeout -> prossegue para o processador local inteligente
     }
 
-    // 5. Final fallback
+    // 3. Fallback inteligente local com suporte a histórico e contexto
     setTimeout(() => {
-      const responseText = directSmartResponse;
-      clientCache.current.set(normKey, responseText);
+      const directSmartResponse = findSmartResponse(query, newMessages);
       setMessages((prev) => [
         ...prev,
-        { id: "a-" + Date.now(), role: "assistant", text: responseText },
+        { id: "a-" + Date.now(), role: "assistant", text: directSmartResponse },
       ]);
       setIsTyping(false);
     }, 250);

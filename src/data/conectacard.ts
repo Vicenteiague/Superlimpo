@@ -205,27 +205,40 @@ Instagram: https://www.instagram.com/superlimpoprodutosdelimpeza?exln=YTQxenNhaX
 Perfil no Google: https://g.co/kgs/NzjgPj
 Como Chegar: https://maps.app.goo.gl/WP6PrQUTYoC1ZQ5Y9
 
+COMPORTAMENTO CONVERSACIONAL E CONTEXTO:
+- LEIA E COMPREENDA O HISTÓRICO: Você sempre lê as mensagens anteriores da conversa para entender o contexto. Se o cliente falar "quanto custa esse?", "vocês entregam ele?", "quais os cheiros?", "e no sábado?", "qual a chave?", você sabe exatamente a qual produto ou assunto ele se referiu na mensagem anterior.
+- ATENDIMENTO HUMANIZADO: Seja sempre muito simpática, educada, acolhedora, clara e prestativa. Use expressões naturais e humanas (ex: "Com certeza!", "Perfeito!", "Que ótimo!", "Temos sim!", "Excelente escolha!").
+- EQUIVALÊNCIAS E GÍRIAS:
+  * "vcs" ou "vc" = vocês / você.
+  * "vocês entregam?" ou "vcs entregam?" = vocês fazem entrega? (SIM, somos delivery!).
+  * "cobra quanto?" ou "quanto cobra?" = qual o valor da entrega? (A maioria é grátis!).
+  * "limpa pisos" ou "limpador de piso" = Limpa Porcelanato e Cerâmica 5L (R$ 30,00).
+  * "Vanish" ou "tipo vanish" = Alvejante sem Cloro 5L (R$ 30,00).
+  * "Desinfetante Perfumado" essências disponíveis: Lavanda, Jasmin, Citronela, Kayak, Frutas Vermelhas e Eucalipto.
+
 REGRAS DE OPERAÇÃO, ENTREGA E PAGAMENTO:
-- Loja Física: Não temos loja física. Trabalhamos apenas com entrega em toda a região de Ponta Porã e Pedro Juan Caballero.
+- Loja Física: Não temos loja física. Trabalhamos exclusivamente com entrega em toda a região de Ponta Porã e Pedro Juan Caballero.
+- Entregas / Delivery: SIM, entregamos com agilidade em toda Ponta Porã e Pedro Juan Caballero!
 - Horários de Entrega (Segunda a Sexta): As entregas são feitas até às 16:00 horas.
 - Horários de Entrega (Sábados): Aos sábados somente às 07:00 horas e às 15:30 horas.
-- Taxa de Entrega: A maioria das entregas não tem custo. Dependendo da distância e do pedido, existe uma pequena taxa de entrega.
+- Taxa de Entrega (Cobra Quanto): A grande maioria das entregas não tem custo (entrega grátis). Dependendo da distância e do pedido, cobramos apenas uma pequena taxa de entrega.
 - Documento Fiscal: Não temos Nota Fiscal, apenas Recibo.
 - Pagamento via Pix: Chave Pix 67993174612.
 
 TABELA DE PRODUTOS E PREÇOS:
+
 Linha Dona de Casa:
 - Kit de Produto (Água sanitária 5L, Desinfetante 5L e Sabão de álcool 5L): Todos os 3 por R$ 38,00
 - Água sanitária (5 litros): R$ 12,00
 - Cloro Ativo 12% (5 litros): R$ 45,00
-- Desinfetante Perfumado (5 litros): R$ 15,00
+- Desinfetante Perfumado (5 litros): R$ 15,00 (Essências disponíveis: Lavanda, Jasmin, Citronela, Kayak, Frutas Vermelhas e Eucalipto)
 - Sabão de álcool - Feito com óleo novo (5 litros): R$ 15,00
 - Sabão Lava Roupas Azul: R$ 35,00
 - Amaciante de roupa (5 litros): R$ 25,00
 - Alvejante sem cloro - Tipo Vanish (5 litros): R$ 30,00
 - Lava louças (5 litros): R$ 25,00
 - Limpa Pedras (5 litros): R$ 30,00
-- Limpa Porcelanato & Cerâmica (5 litros): R$ 30,00
+- Limpa Porcelanato & Cerâmica (5 litros) [Limpa Pisos]: R$ 30,00
 
 Linha Empresas (5 litros):
 - Limpa Chapas (5 litros): R$ 30,00
@@ -235,19 +248,24 @@ Linha Empresas (5 litros):
 - Ativado (5L): R$ 30,00`,
     empresa: [
       {
+        id: "e-entrega",
+        pergunta: "Vocês entregam? / Vocês fazem entrega?",
+        resposta: "Sim, com certeza! A Superlimpo é o maior delivery de produtos de limpeza da região e entregamos em toda Ponta Porã e Pedro Juan Caballero!\n\nNossos horários:\n• Segunda a Sexta: até às 16:00h\n• Sábados: às 07:00h e às 15:30h\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+      },
+      {
+        id: "e-taxa",
+        pergunta: "Cobra quanto de entrega? / Qual o valor da entrega?",
+        resposta: "A grande maioria das nossas entregas não tem custo algum (é grátis!). Dependendo da distância e do tamanho do pedido, cobramos apenas uma pequena taxa de entrega.\n\n[Clique aqui para consultar sua entrega no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+      },
+      {
         id: "e-loja",
         pergunta: "Tem loja física para retirar?",
-        resposta: "Não temos loja física! A Superlimpo trabalha exclusivamente com entregas rápidas em toda a região de Ponta Porã e Pedro Juan Caballero.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+        resposta: "Não temos loja física! A Superlimpo trabalha exclusivamente com entregas rápidas na sua porta em toda Ponta Porã e Pedro Juan Caballero.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
         id: "e-horarios",
         pergunta: "Quais os horários de entrega?",
         resposta: "Nossos horários de entrega são:\n• Segunda a Sexta: entregas até às 16:00 horas.\n• Sábados: entregas às 07:00 horas e às 15:30 horas.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
-      },
-      {
-        id: "e-taxa",
-        pergunta: "Qual o valor da taxa de entrega?",
-        resposta: "A maioria das nossas entregas não tem custo! Dependendo da distância e do pedido, existe uma pequena taxa de entrega.\n\n[Clique aqui para consultar sua entrega no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
         id: "e-pix",
@@ -267,6 +285,21 @@ Linha Empresas (5 litros):
     ],
     produtos: [
       {
+        id: "p-essencias",
+        pergunta: "Quais as essências do Desinfetante Perfumado?",
+        resposta: "Temos 6 essências maravilhosas para o nosso Desinfetante Perfumado (galão de 5 litros por R$ 15,00):\n• 🌸 Lavanda\n• 🌺 Jasmin\n• 🌿 Citronela\n• 🌊 Kayak\n• 🍓 Frutas Vermelhas\n• 🍃 Eucalipto\n\nTodas com perfume duradouro de alto rendimento!\n\n[Clique aqui para pedir sua essência favorita no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+      },
+      {
+        id: "p-pisos",
+        pergunta: "Vocês têm Limpa Pisos / Porcelanato?",
+        resposta: "Temos sim! O nosso Limpa Porcelanato & Cerâmica (5 litros) é o produto ideal para pisos, cerâmicas e porcelanatos. Custa apenas R$ 30,00 e deixa o chão limpinho e brilhante sem agredir!\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+      },
+      {
+        id: "p-vanish",
+        pergunta: "Vocês têm Vanish / Alvejante sem cloro?",
+        resposta: "Temos sim! O nosso Alvejante sem Cloro (Tipo Vanish) galão de 5 litros custa R$ 30,00. Possui oxigênio ativo que remove as manchas mais difíceis de roupas brancas e coloridas sem desbotar!\n\n[Clique aqui para pedir no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+      },
+      {
         id: "p-tabela",
         pergunta: "Qual a tabela de preços?",
         resposta: `Tabela de produtos Superlimpo
@@ -275,14 +308,14 @@ Linha dona de casa:
 • Kit de Produto com (Água sanitária 5L, Desinfetante 5L e Sabão de álcool 5L) todos os 3 por R$ 38,00
 • Água sanitária 5 litros R$ 12,00
 • Cloro Ativo 12% 5 litros R$ 45,00
-• Desinfetante Perfumado 5 litros R$ 15,00
+• Desinfetante Perfumado 5 litros R$ 15,00 (Essências: Lavanda, Jasmin, Citronela, Kayak, Frutas Vermelhas e Eucalipto)
 • Sabão de álcool (Feito com óleo novo) 5 litros R$ 15,00
 • Sabão Lava Roupas Azul R$ 35,00
 • Amaciante de roupa 5 litros R$ 25,00
 • Alvejante sem cloro 5 litros (Tipo Vanish) R$ 30,00
 • Lava louças 5 litros R$ 25,00
 • Limpa Pedras 5 litros R$ 30,00
-• Limpa Porcelanato & Cerâmica 5 litros R$ 30,00
+• Limpa Porcelanato & Cerâmica 5 litros (Limpa Pisos) R$ 30,00
 
 Linha empresas:
 • Limpa Chapas 5 litros R$ 30,00
@@ -311,7 +344,7 @@ Linha empresas:
       {
         id: "p-desinfetante",
         pergunta: "Quanto custa o Desinfetante Perfumado?",
-        resposta: "Desinfetante Perfumado (5 litros) custa R$ 15,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+        resposta: "Desinfetante Perfumado (5 litros) custa R$ 15,00 e temos nas essências: Lavanda, Jasmin, Citronela, Kayak, Frutas Vermelhas e Eucalipto!\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
         id: "p-sabao-alcool",
@@ -346,7 +379,7 @@ Linha empresas:
       {
         id: "p-porcelanato",
         pergunta: "Quanto custa o Limpa Porcelanato & Cerâmica?",
-        resposta: "Limpa Porcelanato & Cerâmica (5 litros) custa R$ 30,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
+        resposta: "Limpa Porcelanato & Cerâmica (5 litros) - nosso limpador de pisos - custa R$ 30,00.\n\n[Clique aqui para fazer seu pedido no WhatsApp](https://api.whatsapp.com/send?phone=5567998342469)"
       },
       {
         id: "p-empresas",
